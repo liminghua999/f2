@@ -1,0 +1,141 @@
+{% extends 'dh.html' %}
+{% block addcss %}
+    <style>
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle!important;
+    }
+    </style>
+{% endblock %}
+{% block kuozhan %}
+<div class="panel panel-info" style="height: 100%">
+    <div class="panel-heading"><b>主机列表详情</b></div>
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <form class="col-md-9" action={% url 'filter' %} method="POST">
+                {% csrf_token %}
+                    <div class="col-sm-2">
+                       <!-- <span>服务项目</span> -->
+                        <select name="filter_label" id="filter_label" class="form-control">
+                                <option value="null">---服务项目---</option>
+                                {% for op in service_select %}
+                                    <option value={{ op }}>{{ op }}</option>
+                                {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-2 ">
+                        <!-- <span>主机类型</span>-->
+                        <select name="filter_type" id="filter_type" class="form-control" >
+                            <option value="null">---主机类型---</option>
+                            {% for types in type_select %}
+                                <option value={{ types.0 }}>{{ types.1 }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <span>&nbsp;</span>
+                        <button type="submit" class="btn btn-success form-btn" style="margin-bottom: 0;">过滤</button>
+                    </div>
+                </form>
+                <form action="" class="col-md-2 pull-right">
+                    <div class=" form-group  has-success">
+                          <div class="input-group">
+                              <input type="text" class="form-control" placeholder="Search">
+                              <span class="input-group-btn"><button type="submit" class="btn btn-success">查找</button></span>
+                          </div>
+                    </div>
+                </form>
+                <a class=" col-sm-1 btn btn-success pull-right" data-toggle="modal" data-target="#addhost">添加主机</a>
+            </div>
+        </div>
+        <table class="table table-hover table-responsive table-condensed">
+            <thead class="text-center"><tr><th>IP</th><th>主机名称</th><th>主机类型</th><th>归属物理宿主机</th><th>服务标签</th><th>总内存G</th><th>磁盘情况</th><th>创建时间</th><th>销毁时间</th><th>操作</th></tr></thead>
+            <tbody>
+                {% for objs in hostlists %}
+                <tr>
+                    <td>{{ objs.IP }}</td>
+                    <td>{{ objs.hostname }}</td>
+                    <td>{{ objs.get_type_display }}</td>
+                    <td>{{ objs.own_to }}</td>
+                    <td>
+                        {% for service in objs.labels.all %}
+                            <span>{{ service.service_name }}-{{ service.tomcat_name }}</span><br>
+                        {% endfor %}
+                    </td>
+                    <td>{{ objs.mem }}</td>
+                    <td>{{ objs.disk }}</td>
+                    <td>{{ objs.create_time }}</td>
+                    <td>{{ objs.destory_tiime }}</td>
+                    <td><span class="label label-success">编辑</span>&nbsp;<span class="label label-warning">删除</span><br><span class="label label-danger">终端</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<div class="modal fade" id="addhost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-success">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">添加主机</h4>
+      </div>
+      <div class="modal-body">
+          <form  action={% url 'addhost' %} method="POST" class="form-horizontal">
+              <div class="form-group row">
+                  <label for="IP" class="col-sm-1 control-label col-sm-offset-2">IP</label>
+                  <div class="col-sm-6">
+                      <input type="text" class="form-control " id="IP" placeholder="IP">
+                  </div>
+              </div>
+              <div class="form-group row">
+                   <label for="filter_label" class="col-sm-2 control-label col-sm-offset-1">服务项目</label>
+                  <div class="col-sm-6">
+                    <select name="filter_label" id="filter_label" class="form-control" multiple="5">
+                            {% for op in service_select %}
+                                <option value={{ op }}>{{ op }}</option>
+                            {% endfor %}
+                    </select>
+                  </div>
+              </div>
+              <div class="form-group row">
+                <label for="filter_type" class="col-sm-2 control-label col-sm-offset-1">主机类型</label>
+                <div class="col-sm-6">
+                    <select name="filter_type" id="filter_type" class="form-control" >
+                        <option value="null">---主机类型---</option>
+                        {% for types in type_select %}
+                            <option value={{ types.0 }}>{{ types.1 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                  <label for="gIP" class="col-sm-2 control-label col-sm-offset-1">归属主机IP</label>
+                  <div class="col-sm-6">
+                      <input type="text" class="form-control " id="gIP" placeholder="归属IP">
+                  </div>
+              </div>
+              <div class="form-group">
+                <label for="dtp_input1" class="col-md-2 control-label">DateTime Picking</label>
+                <div class="input-group date form_datetime col-md-5" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                    <input class="form-control" size="16" type="text" value="" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                </div>
+                <input type="hidden" id="dtp_input1" value="" /><br/>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="submit" class="btn btn-primary">添加</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block addjs %}
+    <script src="/static/js/hostlist.js"></script>
+{% endblock %}

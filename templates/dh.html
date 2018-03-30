@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>dh</title>
+    {% block addcss %}{% endblock %}
+    <style>
+        html,body{height:100%;overflow: hidden;}
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" >
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><b>我的管理</b></a>
+    </div>
+
+    <div>
+      <ul class="nav navbar-nav" id="nav">
+        <li class="active"><a href="#">主页1</a></li>
+        <li><a href="#">主页2</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">登录用户<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">基本资料</a></li>
+            <li><a href="#">帮助</a></li>
+            <li><a href="#">其他</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">退出</a></li>
+          </ul>
+        </li>
+      </ul>
+    <!--  <form class="navbar-form navbar-right">
+        <div class=" form-group  has-success">
+          <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search">
+              <span class="input-group-addon">查找</span>
+          </div>
+        </div>
+      </form> -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="row container-fluid" style="margin-top: 51px;height: 94%;">
+    <div class="col-md-2" style="border: solid 1px greenyellow;margin: 0;padding: 0; height: 100%;overflow:auto;">
+        <div class="list-group">
+            <button class="list-group-item">
+                <p class="text-center">操作面板</p>
+            </button>
+            <div class="m1" id="m1-1">
+                <button class="list-group-item" ><p class="glyphicon glyphicon-oil">&nbsp;</p><b>主机信息</b><span class="glyphicon glyphicon-chevron-left pull-right"></span></button>
+                <div class="list-group  hidden" style="margin: 0;">
+                    <a class="list-group-item btn" href={% url 'hostlist' %}>主机列表</a>
+                    <a class="list-group-item btn" href="#">主机其他</a>
+                </div>
+            </div>
+            <div class="m1" id="m1-2">
+                <button class="list-group-item"><p class="glyphicon glyphicon-user">&nbsp;</p><b>用户信息</b><span class="glyphicon glyphicon-chevron-left pull-right"></span></button>
+                <div class="list-group  hidden" style="margin: 0;">
+                    <a class="list-group-item btn" href="#">用户列表</a>
+                    <a class="list-group-item btn" href="#">用户授权</a>
+                </div>
+            </div>
+            <div class="m1" id="m1-3">
+                <button class="list-group-item"><p class="glyphicon glyphicon-level-up">&nbsp;</p><b>版本迭代</b><span class="glyphicon glyphicon-chevron-left pull-right"></span></button>
+                <div class="list-group  hidden" style="margin: 0;">
+                    <a class="list-group-item btn" href="#">发起新版本迭代</a>
+                    <a class="list-group-item btn" href="#">已完成版本迭代</a>
+                    <a class="list-group-item btn" href="#">未完成版本迭代</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10" style="border: solid 1px greenyellow;margin: 0;padding: 0;height: 100%;overflow:auto;">
+        {% block kuozhan %}{% endblock %}
+    </div>
+</div>
+
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/holder.min.js"></script>
+<script>
+      $(function () {
+        $('.m1>button').click(function () {
+            $(this).parent().siblings('div').find('button').removeClass('active');
+            $(this).toggleClass('active');
+            $(this).parent().siblings('div').find('span').addClass('glyphicon-chevron-left');
+            $(this).parent().siblings('div').find('span').removeClass('glyphicon-chevron-down');
+            $(this).find('span').toggleClass('glyphicon-chevron-left');
+            $(this).find('span').toggleClass('glyphicon-chevron-down');
+            $(this).parent().siblings('div').find('div').addClass('hidden');
+            $(this).parent().find('div').toggleClass('hidden');
+        });
+        $('.m1 div a').click(function () {
+            $(this).siblings().removeClass('active');
+            $(this).parents().siblings('div').find('div').children('a').removeClass('active');
+            $(this).addClass('active');
+        });
+        $('#nav>li').click(function () {
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+        });
+    })
+</script>
+{% block addjs %}{% endblock %}
+</body>
+</html>

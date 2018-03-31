@@ -18,6 +18,8 @@ def Hostadd(req):
     from addhost import host_add
     res=host_add()
     return HttpResponse(res)
+def addservice(req):
+    pass
 def Dasboard(req):
     return render(req,'dashboard.html')
 def filter(req):

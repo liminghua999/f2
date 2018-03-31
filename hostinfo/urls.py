@@ -20,5 +20,6 @@ urlpatterns = [
     url(r'^hostlist/',hostinfov.Hostlist,name="hostlist"),
     url(r'^$',hostinfov.Dasboard,name="dashboard"),
     url(r'^filter/$',hostinfov.filter,name='filter'),
-    url(r'addhost/$',hostinfov.Hostadd,name='addhost')
+    url(r'^addhost/$',hostinfov.Hostadd,name='addhost'),
+    url(r'^addservice/$',hostinfov.addservice,name='addservice'),
 ]

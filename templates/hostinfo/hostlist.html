@@ -13,9 +13,9 @@
     <div class="panel-body">
         <div class="container-fluid">
             <div class="row">
-                <form class="col-md-9" action={% url 'filter' %} method="POST">
+                <form class="col-md-8" action={% url 'filter' %} method="POST">
                 {% csrf_token %}
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                        <!-- <span>服务项目</span> -->
                         <select name="filter_label" id="filter_label" class="form-control">
                                 <option value="null">---服务项目---</option>
@@ -24,7 +24,7 @@
                                 {% endfor %}
                         </select>
                     </div>
-                    <div class="col-sm-2 ">
+                    <div class="col-sm-3">
                         <!-- <span>主机类型</span>-->
                         <select name="filter_type" id="filter_type" class="form-control" >
                             <option value="null">---主机类型---</option>
@@ -46,7 +46,12 @@
                           </div>
                     </div>
                 </form>
-                <a class=" col-sm-1 btn btn-success pull-right" data-toggle="modal" data-target="#addhost">添加主机</a>
+                <div class="col-md-1 pull-right">
+                    <a class="btn btn-success" data-toggle="modal" data-target="#addhost">添加主机</a>
+                </div>
+                <div class="col-md-1 pull-right">
+                    <a class="btn btn-success" data-toggle="modal" data-target="#addservice">添加服务</a>
+                </div>
             </div>
         </div>
         <table class="table table-hover table-responsive table-condensed">
@@ -75,7 +80,7 @@
 
     </div>
 </div>
-<div class="modal fade" id="addhost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="addhost" tabindex="-1" role="dialog" aria-labelledby="addhost">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-success">
@@ -121,6 +126,36 @@
                   <label for="ctime" class="col-sm-3 control-label ">主机创建时间</label>
                   <div class="col-sm-6">
                     <input name="ctime" type="text" class="demo-input form-control" placeholder="请选择日期" id="ctime">
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="submit" class="btn btn-primary">添加</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="addservice" tabindex="-1" role="dialog" aria-labelledby="addservice">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-success">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">添加服务</h4>
+      </div>
+      <div class="modal-body">
+          <form  action={% url 'addservice' %} method="POST" class="form-horizontal">
+              <div class="form-group row">
+                  <label for="cservice_name" class="col-sm-2 control-label col-sm-offset-2">service_name</label>
+                  <div class="col-sm-6">
+                      <input type="text" class="form-control " id="cservice_name" placeholder="新增服务项目名称">
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <label for="ctomcat_name" class="col-sm-2 control-label col-sm-offset-2">tomcat_name</label>
+                  <div class="col-sm-6">
+                      <input type="text" class="form-control " id="ctomcat_name" placeholder="新增对应tomcat名称">
                   </div>
               </div>
           </form>

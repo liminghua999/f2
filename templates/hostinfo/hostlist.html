@@ -5,6 +5,7 @@
         text-align: center;
         vertical-align: middle!important;
     }
+    .err{color: red;}
     </style>
 {% endblock %}
 {% block kuozhan %}
@@ -46,38 +47,38 @@
                           </div>
                     </div>
                 </form>
-                <div class="col-md-1 pull-right">
-                    <a class="btn btn-success" data-toggle="modal" data-target="#addhost">添加主机</a>
+                <div class="col-md-1 pull-right" role="button" id="ahhost">
+                    <a class="btn btn-success pull-left" data-toggle="modal"  data-target="#addhost" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">添加主机</a>
                 </div>
-                <div class="col-md-1 pull-right">
+                <div class="col-md-1 pull-right" role="button" id="ahservice">
                     <a class="btn btn-success" data-toggle="modal" data-target="#addservice">添加服务</a>
                 </div>
             </div>
         </div>
         <table class="table table-hover table-responsive table-condensed">
-            <thead class="text-center"><tr><th>IP</th><th>主机名称</th><th>主机类型</th><th>归属物理宿主机</th><th>服务标签</th><th>总内存G</th><th>磁盘情况</th><th>创建时间</th><th>销毁时间</th><th>操作</th></tr></thead>
+            <thead class="text-center"><tr><th>IP</th><th>主机名称</th><th>主机类型</th><th>归属物理宿主机</th><th>服务标签</th><th>总内存G</th><th>磁盘情况</th><th>说明</th><th>创建时间</th><th>销毁时间</th><th>操作</th></tr></thead>
             <tbody>
                 {% for objs in hostlists %}
                 <tr>
-                    <td>{{ objs.IP }}</td>
-                    <td>{{ objs.hostname }}</td>
-                    <td>{{ objs.get_type_display }}</td>
-                    <td>{{ objs.own_to }}</td>
-                    <td>
+                    <td t="ip">{{ objs.IP }}</td>
+                    <td t="hostname">{{ objs.hostname }}</td>
+                    <td t="type">{{ objs.get_type_display }}</td>
+                    <td t="own_to">{{ objs.own_to }}</td>
+                    <td t="label">
                         {% for service in objs.labels.all %}
                             <span>{{ service.service_name }}-{{ service.tomcat_name }}</span><br>
                         {% endfor %}
                     </td>
-                    <td>{{ objs.mem }}</td>
-                    <td>{{ objs.disk }}</td>
-                    <td>{{ objs.create_time }}</td>
-                    <td>{{ objs.destory_tiime }}</td>
-                    <td><span class="label label-success">编辑</span>&nbsp;<span class="label label-warning">删除</span><br><span class="label label-danger">终端</span></td>
+                    <td t="mem">{{ objs.mem }}</td>
+                    <td t="disk">{{ objs.disk }}</td>
+                    <td t="remarks">{{ objs.remarks }}</td>
+                    <td t="ctime">{{ objs.create_time }}</td>
+                    <td t="dtime">{{ objs.destory_tiime }}</td>
+                    <td t="operate"><span class="label label-success">编辑</span>&nbsp;<span class="label label-warning">删除</span><br><span class="label label-danger">终端</span></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-
     </div>
 </div>
 <div class="modal fade" id="addhost" tabindex="-1" role="dialog" aria-labelledby="addhost">
@@ -92,7 +93,7 @@
               <div class="form-group row">
                   <label for="IP" class="col-sm-1 control-label col-sm-offset-2">IP</label>
                   <div class="col-sm-6">
-                      <input type="text" class="form-control " id="IP" placeholder="IP">
+                      <input type="text" class="form-control " name="IP" id="IP" placeholder="IP">
                   </div>
               </div>
               <div class="form-group row">
@@ -119,7 +120,7 @@
               <div class="form-group row">
                   <label for="gIP" class="col-sm-2 control-label col-sm-offset-1">归属主机IP</label>
                   <div class="col-sm-6">
-                      <input type="text" class="form-control " id="gIP" placeholder="归属IP">
+                      <input type="text" class="form-control " name="gIP" id="gIP" placeholder="归属IP">
                   </div>
               </div>
               <div class="form-group row">
@@ -132,7 +133,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="submit" class="btn btn-primary">添加</button>
+        <button type="button" id="addhost_submit" class="btn btn-primary">添加</button>
       </div>
     </div>
   </div>
@@ -145,29 +146,28 @@
         <h4 class="modal-title" id="myModalLabel">添加服务</h4>
       </div>
       <div class="modal-body">
-          <form  action={% url 'addservice' %} method="POST" class="form-horizontal">
+          <form   class="form-horizontal">
               <div class="form-group row">
                   <label for="cservice_name" class="col-sm-2 control-label col-sm-offset-2">service_name</label>
                   <div class="col-sm-6">
-                      <input type="text" class="form-control " id="cservice_name" placeholder="新增服务项目名称">
+                      <input type="text" class="form-control " name="cservice_name" id="cservice_name" placeholder="新增服务项目名称">
                   </div>
               </div>
               <div class="form-group row">
                   <label for="ctomcat_name" class="col-sm-2 control-label col-sm-offset-2">tomcat_name</label>
                   <div class="col-sm-6">
-                      <input type="text" class="form-control " id="ctomcat_name" placeholder="新增对应tomcat名称">
+                      <input type="text" class="form-control " name="ctomcat_name" id="ctomcat_name" placeholder="新增对应tomcat名称">
                   </div>
               </div>
           </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="submit" class="btn btn-primary">添加</button>
+        <button type="button" id="addservice_submit" class="btn btn-primary">添加</button>
       </div>
     </div>
   </div>
 </div>
-
 {% endblock %}
 {% block addjs %}
     <script src="/static/js/hostlist.js"></script>

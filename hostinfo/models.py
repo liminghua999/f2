@@ -13,7 +13,8 @@ class HostInfo(models.Model):
     own_to=models.GenericIPAddressField(default=None,null=True)
     labels=models.ManyToManyField('Services')
     mem=models.CharField(max_length=16,verbose_name="总内存G")
-    disk=models.CharField(max_length=64,verbose_name="磁盘情况")
+    # disk=models.CharField(max_length=64,verbose_name="磁盘情况")
+    disk = models.ManyToManyField('DiskInfo',verbose_name="磁盘情况")
     remarks=models.TextField(verbose_name="说明")
     create_time=models.DateTimeField(verbose_name="创建时间")
     destory_tiime=models.DateTimeField(verbose_name="销毁时间",null=True)
@@ -33,4 +34,13 @@ class Services(models.Model):
     class Meta:
         verbose_name="项目服务"
         verbose_name_plural="项目服务"
+
+class DiskInfo(models.Model):
+    mount_name=models.CharField(max_length=16,verbose_name="disk挂载路径名称")
+    mount_size=models.CharField(max_length=16,verbose_name="disk挂载路径大小")
+    def __str__(self):
+        return self.mount_name
+    class Meta:
+        verbose_name="磁盘信息"
+        verbose_name_plural="磁盘信息"
 

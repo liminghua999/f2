@@ -70,9 +70,13 @@
                         {% endfor %}
                     </td>
                     <td t="mem">{{ objs.mem }}</td>
-                    <td t="disk">{{ objs.disk }}</td>
+                    <td t="disk">
+                        {% for d in objs.disk.all %}
+                            <span class="row" style="margin: 0;"><span class="col-sm-4 col-sm-offset-2"><b>{{ d.mount_name }}</b></span><span class="col-sm-1">{{ d.mount_size }}</span></span>
+                        {% endfor %}
+                    </td>
                     <td t="remarks">{{ objs.remarks }}</td>
-                    <td t="ctime">{{ objs.create_time }}</td>
+                    <td t="ctime">{{ objs.create_time | date:"Y-m-d H:i:s" }}</td>
                     <td t="dtime">{{ objs.destory_tiime }}</td>
                     <td t="operate"><span class="label label-success">编辑</span>&nbsp;<span class="label label-warning">删除</span><br><span class="label label-danger">终端</span></td>
                 </tr>

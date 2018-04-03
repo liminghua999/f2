@@ -45,7 +45,7 @@ $(function () {
                     tdisk = document.createElement('td');
                     tdisk.setAttribute('t', 'disk');
                     tdisk.innerHTML = res['data']['disk'];
-                    console.log(res['data']['disk']['/']);
+                    console.log(tdisk.innerHTML);
                     tremarks = document.createElement('td');
                     tremarks.setAttribute('t', 'remarks');
                     tremarks.innerHTML = res['data']['remarks'];

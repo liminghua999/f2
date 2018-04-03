@@ -4,6 +4,7 @@ from django.shortcuts import render, HttpResponse,HttpResponseRedirect
 from hostinfo import models
 from get_data import *
 import json
+# from django.core.serializers.json import DjangoJSONEncoder
 
 # Create your views here.
 def Hostlist(req):
@@ -16,7 +17,7 @@ def Hostlist(req):
     return render(req, 'hostinfo/hostlist.html', {"hostlists":obj,'service_select':sobj,"type_select":tobj,})
 def Hostadd(req):
     from addhost import host_add
-    res=host_add()
+    res=host_add(req)
     print(res)
     return HttpResponse(json.dumps(res))
 def addservice(req):

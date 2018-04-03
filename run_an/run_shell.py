@@ -17,8 +17,8 @@ class ops_ip():
         self.IP=IP
         self.Group=Group
     def add_ip(self):
-        keyword = self.Group+']'
-        i = '\n'+self.IP
+        keyword = str(self.Group)+']'
+        i = '\n'+str(self.IP)
         try:
             file = open(hostfile, 'r')
             content = file.read()
@@ -46,7 +46,7 @@ class ops_ip():
             print(e)
             return 0
     def del_ip(self):
-        keyword='\n'+self.IP
+        keyword='\n'+str(self.IP)
         try:
             file = open(hostfile, 'r')
             content = file.read()
@@ -118,7 +118,8 @@ def an_shell(IP,cmd,Module='shell'):
     finally:
         if tqm is not None:
             tqm.cleanup()
-# r=an_shell('192.168.0.212','','setup')
+#r=an_shell('192.168.0.212','','setup')
+
 
 class Get_setup_info(object):
     def __init__(self,IP):
@@ -163,3 +164,6 @@ class shell_info(object):
         return data
 
 
+# r=Get_setup_info('192.168.0.211')
+# r.give_result()
+# print(r.hostnameinfo())

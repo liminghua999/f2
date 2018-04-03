@@ -56,7 +56,7 @@
             </div>
         </div>
         <table class="table table-hover table-responsive table-condensed">
-            <thead class="text-center"><tr><th>IP</th><th>主机名称</th><th>主机类型</th><th>归属物理宿主机</th><th>服务标签</th><th>总内存G</th><th>磁盘情况</th><th>说明</th><th>创建时间</th><th>销毁时间</th><th>操作</th></tr></thead>
+            <thead class="text-center"><tr><th>IP</th><th>主机名称</th><th>主机类型</th><th>归属物理宿主机</th><th>服务标签</th><th>总内存M</th><th>磁盘情况</th><th>说明</th><th>创建时间</th><th>销毁时间</th><th>操作</th></tr></thead>
             <tbody>
                 {% for objs in hostlists %}
                 <tr>
@@ -97,9 +97,9 @@
                   </div>
               </div>
               <div class="form-group row">
-                   <label for="filter_label" class="col-sm-2 control-label col-sm-offset-1">服务项目</label>
+                   <label for="addhost_label" class="col-sm-2 control-label col-sm-offset-1">服务项目</label>
                   <div class="col-sm-6">
-                    <select name="filter_label" id="filter_label" class="form-control" multiple="5">
+                    <select name="addhost_label" id="addhost_label" class="form-control" multiple="5">
                             {% for op in service_select %}
                                 <option value={{ op }}>{{ op }}</option>
                             {% endfor %}
@@ -107,9 +107,9 @@
                   </div>
               </div>
               <div class="form-group row">
-                <label for="filter_type" class="col-sm-2 control-label col-sm-offset-1">主机类型</label>
+                <label for="addhost_type" class="col-sm-2 control-label col-sm-offset-1">主机类型</label>
                 <div class="col-sm-6">
-                    <select name="filter_type" id="filter_type" class="form-control" >
+                    <select name="addhost_type" id="addhost_type" class="form-control" >
                         <option value="null">---主机类型---</option>
                         {% for types in type_select %}
                             <option value={{ types.0 }}>{{ types.1 }}</option>

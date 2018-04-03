@@ -7,15 +7,19 @@ $(function () {
     $('#m1-1').find('div').children('a:eq(0)').addClass('active');
     laydate.render({ elem: '#ctime',type: 'datetime' });
     $('#addhost_submit').click(function () {
-        var d={'ip':null,'type':null,'labels':null,'ctime':null};
-        d.ip = $('#ip').val();d.type=$('#filter_type').val();
-        d.labels=$('#filter_label').val();
+        var d={'ip':null,'type':null,'labels':"",'ctime':null,'gip':null};
+        d.ip = $('#IP').val();
+        d.type=$('#addhost_type').get(0).selectedIndex;
+        $('#addhost_label option:selected').each(function () {
+            d.labels += $(this).val()+' ';
+        });
         d.ctime=$('#ctime').val();
+        d.gip=$('#gIP').val();
         $.ajax('/hostinfo/addhost/', {
             type: 'POST', dataType: 'JSON', data: d,
             success: function (res) {
-                if (res['err'] != 0) {
-                        alert('添加主机失败，请重试！！')
+                if (res['err'] != '0') {
+                        alert(res.err)
                 }
                 else {
                     console.log(res['data']);
@@ -41,6 +45,7 @@ $(function () {
                     tdisk = document.createElement('td');
                     tdisk.setAttribute('t', 'disk');
                     tdisk.innerHTML = res['data']['disk'];
+                    console.log(res['data']['disk']['/']);
                     tremarks = document.createElement('td');
                     tremarks.setAttribute('t', 'remarks');
                     tremarks.innerHTML = res['data']['remarks'];

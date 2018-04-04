@@ -20,6 +20,10 @@ def Hostadd(req):
     res=host_add(req)
     print(res)
     return HttpResponse(json.dumps(res))
+def HostDel(req):
+    from delhost import DelHost
+    res=DelHost(req)
+    return HttpResponse(json.dumps(res))
 def addservice(req):
     if req.method == 'POST':
         res=True

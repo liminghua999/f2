@@ -5,7 +5,6 @@
         text-align: center;
         vertical-align: middle!important;
     }
-    .err{color: red;}
     </style>
 {% endblock %}
 {% block kuozhan %}
@@ -48,7 +47,7 @@
                     </div>
                 </form>
                 <div class="col-md-1 pull-right" role="button" id="ahhost">
-                    <a class="btn btn-success pull-left" data-toggle="modal"  data-target="#addhost" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">添加主机</a>
+                    <a class="btn btn-success pull-left" data-toggle="modal"  data-target="#addhost" >添加主机</a>
                 </div>
                 <div class="col-md-1 pull-right" role="button" id="ahservice">
                     <a class="btn btn-success" data-toggle="modal" data-target="#addservice">添加服务</a>
@@ -72,13 +71,17 @@
                     <td t="mem">{{ objs.mem }}</td>
                     <td t="disk">
                         {% for d in objs.disk.all %}
-                            <span class="row" style="margin: 0;"><span class="col-sm-4 col-sm-offset-2"><b>{{ d.mount_name }}</b></span><span class="col-sm-1">{{ d.mount_size }}</span></span>
+                            <span class="row" style="margin: 0;"><span class="col-sm-3 col-sm-offset-3"><b>{{ d.mount_name }}</b></span><span class="col-sm-3">{{ d.mount_size }}</span></span>
                         {% endfor %}
                     </td>
                     <td t="remarks">{{ objs.remarks }}</td>
                     <td t="ctime">{{ objs.create_time | date:"Y-m-d H:i:s" }}</td>
                     <td t="dtime">{{ objs.destory_tiime }}</td>
-                    <td t="operate"><span class="label label-success">编辑</span>&nbsp;<span class="label label-warning">删除</span><br><span class="label label-danger">终端</span></td>
+                    <td t="operate">
+                        <a class="label label-success hostlist_edit" data-toggle="modal" data-target="#hostlist_edit">编辑</a>&nbsp;
+                        <a class="label label-warning hostlist_del" data-toggle="modal" data-target="#hostlist_del">删除</a><br>
+                        <a class="label label-danger hostlist_terminal" href="#">终端</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -172,6 +175,54 @@
     </div>
   </div>
 </div>
+<div class="modal fade" id="hostlist_edit" tabindex="-1" role="dialog" aria-labelledby="hostlist_edit">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-success">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">修改主机信息</h4>
+      </div>
+      <div class="modal-body">
+          <form   class="form-horizontal">
+              <div class="form-group row">
+                  <label for="cservice_name" class="col-sm-2 control-label col-sm-offset-2">service_name</label>
+                  <div class="col-sm-6">
+                      <input type="text" class="form-control " name="cservice_name" id="cservice_name" placeholder="新增服务项目名称">
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <label for="ctomcat_name" class="col-sm-2 control-label col-sm-offset-2">tomcat_name</label>
+                  <div class="col-sm-6">
+                      <input type="text" class="form-control " name="ctomcat_name" id="ctomcat_name" placeholder="新增对应tomcat名称">
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" id="addservice_submit" class="btn btn-primary">添加</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="hostlist_del" tabindex="-1" role="dialog" aria-labelledby="hostlist_del">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-success">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">删除</h4>
+      </div>
+      <div class="modal-body">
+          <p class="text-center ">确定删除<span style="color: red;"></span>主机信息？？</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" id="hostlist_del_submit" class="btn btn-primary">删除</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 {% block addjs %}
     <script src="/static/js/hostlist.js"></script>

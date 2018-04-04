@@ -15,11 +15,12 @@ $(function () {
         });
         d.ctime=$('#ctime').val();
         d.gip=$('#gIP').val();
+        $('#addhost').modal('hide');
         $.ajax('/hostinfo/addhost/', {
             type: 'POST', dataType: 'JSON', data: d,
             success: function (res) {
                 if (res['err'] != '0') {
-                        alert(res.err)
+                    alert(res.err);
                 }
                 else {
                     console.log(res['data']);
@@ -81,8 +82,24 @@ $(function () {
             type:'POST',dataType:'JSON',data:d,success:
                 function (res) {
                 if (res == 'true'){$('#addservice').modal('hide');window.location.reload();}
-                else {alert(res);;$('#addservice').modal('hide');}
+                else {alert(res);$('#addservice').modal('hide');}
                 }
             })
+    });
+    $('table tbody').on('click','.hostlist_edit',function () {
+
+    });
+    $('table tbody').on('click','.hostlist_del',function () {
+        var del_ip=$(this).parent().parent().children().first().text();
+        $('#hostlist_del .modal-body p span').text(del_ip);
+        $(this).parent().parent().attr('id','pre_del');
+        var d={'del_ip':del_ip};
+        $("#hostlist_del_submit").click(function () {
+            $.ajax('/hostinfo/delhost/',{type:'POST',dataType:'JSON',data:d,success:function (res) {
+                    if (res != '0'){alert(res)}
+                    else{$('#pre_del').remove()}
+                }});
+            $('#hostlist_del').modal('hide');
+        })
     });
 })

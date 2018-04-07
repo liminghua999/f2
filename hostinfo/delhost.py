@@ -14,6 +14,8 @@ def DelHost(req):
                 return res
             for d in obj.disk.all():
                 obj.disk.remove(d.id)
+                # models.DiskInfo.objects.filter(id=d.id).delete()
+                d.delete()
             for l in obj.labels.all():
                 obj.labels.remove(l.id)
             obj.delete()

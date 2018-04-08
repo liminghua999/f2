@@ -87,6 +87,42 @@ $(function () {
             })
     });
     $('table tbody').on('click','.hostlist_edit',function () {
+        var get_ip=$(this).parent().parent().children().first().text();
+        $('#uip').text(get_ip);
+        var oldtype=$(this).parent().parent().children(':eq(2)').text();
+        $('#utype option').each(function () {
+                if ($(this).text() == oldtype){$(this).attr('selected',true)}
+                else{$(this).attr('selected',false)}
+            }
+        );
+        var oldlabels = $(this).parent().parent().children(':eq(4)').text();
+        $('#uservices option').each(function () {
+                var pp= new RegExp($(this).text());
+                var bh=pp.test(oldlabels);
+                if (bh){$(this).attr('selected',true)}
+                else{$(this).attr('selected',false)}
+            }
+        );
+        var oldgip = $(this).parent().parent().children(':eq(3)').text();
+        $('#ugip').attr('placeholder',oldgip);
+        var oldremarks=$(this).parent().parent().children(':eq(7)').text();
+        $('#uremarks').val(oldremarks);
+        $('#updateservice_submit').click(function () {
+            var d={'ip':null,'type':null,'labels':"",'remarks':"",'gip':null};
+            d.ip=get_ip;
+            d.type=$('#utype').get(0).selectedIndex;
+            $('#uservices option:selected').each(function () {
+                d.labels += $(this).val()+' ';
+            });
+            d.gip=$('#ugip').val();
+            d.remarks=$('#uremarks').val();
+            $.ajax('/hostinfo/updatehost/',{"data":d,"type":'POST',"dataTtype":"JSON",success:function (res) {
+                console.log(typeof(inres));
+                if ( res != '0' ) {alert(res);console.log('failed');}
+                else {$('#hostlist_edit').modal('hide');alert('修改成功');top.location.reload(true);}
+
+            }});
+        })
 
     });
     $('table tbody').on('click','.hostlist_del',function () {
@@ -102,4 +138,26 @@ $(function () {
             $('#hostlist_del').modal('hide');
         })
     });
+    // $('#filter form div button').click(function () {
+    //    var label=$('#filter_label').find('option:selected').text();
+    //    alert(label);
+    //    var type=$('#filter_type').find('option:selected').val();
+    //    alert(type);
+    //    d={'filter_label':null,'filter_type':null};
+    //    d.filter_label=label;
+    //    d.filter_type=type;
+    //    $.ajax('/hostinfo/filter/',{'data':d,'type':"POST",'dataType':'JSON',success:function (res) {
+    //         if (res.err != '0'){
+    //             $('#filter_label option').each(function () {
+    //                 if ($(this).text() == res.data.filter_label){$(this).attr('selected',true)}
+    //                 else{$(this).attr('selected',false)}
+    //             });
+    //             $('#filter_type option').each(function () {
+    //                 if ($(this).text() == res.data.filter_type){$(this).attr('selected',true)}
+    //                 else{$(this).attr('selected',false)}
+    //             });
+    //         }
+    //         else{alert(res.err)}
+    //     }})
+    // });
 })

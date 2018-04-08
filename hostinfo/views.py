@@ -24,6 +24,10 @@ def HostDel(req):
     from delhost import DelHost
     res=DelHost(req)
     return HttpResponse(json.dumps(res))
+def HostUpdate(req):
+    from updatehost import updatehost
+    res=updatehost(req)
+    return HttpResponse(json.dumps(res))
 def addservice(req):
     if req.method == 'POST':
         res=True
@@ -46,6 +50,9 @@ def filter(req):
         f_type=req.POST.get('filter_type')
         f_service=req.POST.get('filter_label')
         f_service=str(f_service).encode('utf-8')
+        res={'data':{'filter_type':None,'filter_service':None},'err':'0'}
+        res['data']['filter_type']=f_type
+        res['data']['filter_service'] = f_service
         try:
             sobj = get_service_name_data()
             tobj = get_type_data()
@@ -57,14 +64,20 @@ def filter(req):
             except Exception as e:
                 print('f:')
                 print(e)
+                # res['err']="查询信息失败，请重试"
+                # return HttpResponse(json.dumps(res))
             return render(req, 'hostinfo/hostlist.html',
                           {"hostlists": obj, 'service_select': sobj, "type_select": tobj, })
+            # return HttpResponse(json.dumps(res))
         elif f_service != 'null' and f_type  == 'null':
             try:
                 obj = models.HostInfo.objects.filter(labels__service_name__contains=f_service)
             except Exception as e:
                 print('f:')
                 print(e)
+            #     res['err'] = "查询信息失败，请重试"
+            #     return HttpResponse(json.dumps(res))
+            # return HttpResponse(json.dumps(res))
             return render(req, 'hostinfo/hostlist.html',
                           {"hostlists": obj, 'service_select': sobj, "type_select": tobj, })
         elif f_service == 'null' and f_type  != 'null':
@@ -75,6 +88,10 @@ def filter(req):
             except Exception as e:
                 print('f:')
                 print(e)
+            #     res['err'] = "查询信息失败，请重试"
+            #     return HttpResponse(json.dumps(res))
+            # return HttpResponse(json.dumps(res))
             return render(req, 'hostinfo/hostlist.html', {"hostlists":obj,'service_select':sobj,"type_select":tobj,})
         else:
             return HttpResponseRedirect('/hostinfo/hostlist')
+            # return HttpResponse(json.dumps(res))

@@ -12,7 +12,7 @@
     <div class="panel-heading"><b>主机列表详情</b></div>
     <div class="panel-body">
         <div class="container-fluid">
-            <div class="row">
+            <div class="row" id="filter">
                 <form class="col-md-8" action={% url 'filter' %} method="POST">
                 {% csrf_token %}
                     <div class="col-sm-3">
@@ -34,8 +34,7 @@
                         </select>
                     </div>
                     <div class="col-sm-2">
-                        <span>&nbsp;</span>
-                        <button type="submit" class="btn btn-success form-btn" style="margin-bottom: 0;">过滤</button>
+                        <button type="submit" class="btn btn-success form-btn" >过滤</button>
                     </div>
                 </form>
                 <form action="" class="col-md-2 pull-right">
@@ -74,7 +73,7 @@
                             <span class="row" style="margin: 0;"><span class="col-sm-3 col-sm-offset-3"><b>{{ d.mount_name }}</b></span><span class="col-sm-3">{{ d.mount_size }}</span></span>
                         {% endfor %}
                     </td>
-                    <td t="remarks">{{ objs.remarks }}</td>
+                    <td t="remarks" style="width: 150px;">{{ objs.remarks }}</td>
                     <td t="ctime">{{ objs.create_time | date:"Y-m-d H:i:s" }}</td>
                     <td t="dtime">{{ objs.destory_tiime }}</td>
                     <td t="operate">
@@ -185,22 +184,50 @@
       <div class="modal-body">
           <form   class="form-horizontal">
               <div class="form-group row">
-                  <label for="cservice_name" class="col-sm-2 control-label col-sm-offset-2">service_name</label>
+                  <label for="uip" class="col-sm-2 control-label col-sm-offset-2">IP</label>
                   <div class="col-sm-6">
-                      <input type="text" class="form-control " name="cservice_name" id="cservice_name" placeholder="新增服务项目名称">
+                      <span id="uip" class="form-control"></span>
                   </div>
               </div>
               <div class="form-group row">
-                  <label for="ctomcat_name" class="col-sm-2 control-label col-sm-offset-2">tomcat_name</label>
+                  <label for="utype" class="col-sm-2 control-label col-sm-offset-2">主机类型</label>
                   <div class="col-sm-6">
-                      <input type="text" class="form-control " name="ctomcat_name" id="ctomcat_name" placeholder="新增对应tomcat名称">
+                      <select name="utype" id="utype" class="form-control" >
+                            <option value="null">---主机类型---</option>
+                            {% for types in type_select %}
+                                <option value={{ types.0 }}>{{ types.1 }}</option>
+                            {% endfor %}
+                      </select>
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <label for="uservices" class="col-sm-2 control-label col-sm-offset-2">服务类型</label>
+                  <div class="col-sm-6">
+                      <select name="uservices" id="uservices" class="form-control" multiple="5">
+                            {% for op in service_select %}
+                                <option value={{ op }}>{{ op }}</option>
+                            {% endfor %}
+                      </select>
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <label for="ugip" class="col-sm-2 control-label col-sm-offset-2">归属IP</label>
+                  <div class="col-sm-6">
+                      <input type="text" id="ugip" class="form-control" placeholder="归属IP">
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <label for="uremarks" class="col-sm-2 control-label col-sm-offset-2">说明</label>
+                  <div class="col-sm-6">
+
+                      <textarea id="uremarks" class="form-control" placeholder="说明" rows="8"></textarea>
                   </div>
               </div>
           </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" id="addservice_submit" class="btn btn-primary">添加</button>
+        <button type="button" id="updateservice_submit" class="btn btn-primary">更新</button>
       </div>
     </div>
   </div>

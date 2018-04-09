@@ -13,16 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url,include
-from django.views.generic import RedirectView
-from django.contrib import admin
-from hostinfo import urls as hostinfourls
-from VersionIterration import urls as versionurls
+from django.conf.urls import url
+from VersionIterration import views as versionv
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    # url(r'^$',app1views.index),
-    url(r'^hostinfo/',include(hostinfourls)),
-    url(r'^$',RedirectView.as_view(url='/hostinfo/')),
-    url(r'^verson/',include(versionurls)),
+    url(r'^new/',versionv.NewVersion,name="newversion"),
 ]

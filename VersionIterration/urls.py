@@ -17,5 +17,7 @@ from django.conf.urls import url
 from VersionIterration import views as versionv
 
 urlpatterns = [
-    url(r'^new/',versionv.NewVersion,name="newversion"),
+    url(r'^new/$',versionv.NewVersion,name="newversion"),
+    url(r'^unfinished/$',versionv.CheckoutUnfinished,name='unfinished'),
+    url(r'^unfinished/(?P<id>\d+)/$',versionv.UnfinishedDetail,name='unfinished_detail'),
 ]

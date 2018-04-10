@@ -1,10 +1,59 @@
 {% extends 'dh.html' %}
+{% load get_data %}
 {% block addcss %}{% endblock %}
 {% block kuozhan %}
 <div class="panel panel-info" style="height: 97%;">
     <div class="panel-heading">新版本迭代发起</div>
     <div class="panel-body">
-        <p>newversion</p>
+        <p class="row"><span class="col-sm-offset-3" style="color: red;">{{ msg }}</span></p>
+        <form action={% url 'newversion' %} method="POST" class=" form form-horizontal">
+            {% csrf_token %}
+            <div class="form-group row">
+                 <label for="startman" class="col-sm-2 control-label">发起人</label>
+                 <div class="col-sm-3">
+                     <select class="form-control" id="startman" name="startman">
+                         <option value="null">--选择发起人--</option>
+                         {% get_operateman '2' %}
+                     </select>
+                 </div>
+            </div><br>
+            <div class="form-group row">
+                 <label for="projectname" class="col-sm-2 control-label">迭代的项目</label>
+                 <div class="col-sm-3">
+                     <select class="form-control" id="projectname" name="projectname">
+                         <option value="null">--选择项目--</option>
+                         {% get_project  %}
+                     </select>
+                 </div>
+            </div><br>
+            <div class="form-group row">
+                 <label for="projectversion" class="col-sm-2 control-label">项目版本</label>
+                 <div class="col-sm-3">
+                     <input type="text" class="form-control" id="projectversion" placeholder="本次项目的版本" name="projectversion">
+                 </div>
+            </div><br>
+            <div class="form-group row">
+                 <label for="updatecontent" class="col-sm-2 control-label">更新内容</label>
+                 <div class="col-sm-3">
+                     <textarea class="form-control" rows="8" id="updatecontent" name="updatecontent" placeholder="本次更新的主要内容"></textarea>
+                 </div>
+            </div><br>
+            <div class="form-group row">
+                 <label for="inform_nextman" class="col-sm-2 control-label">通知项目相关研发人员</label>
+                 <div class="col-sm-3">
+                     <select class="form-control" id="inform_nextman" name="inform_nextman">
+                         <option value="null">--选择被通知人--</option>
+                         {% get_operateman '2' %}
+                     </select>
+                 </div>
+            </div><br>
+            <div class="form-group row">
+                <br><br>
+                <div class="col-sm-offset-3">
+                    <button type="submit" class="btn btn-success">发起</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 {% endblock %}

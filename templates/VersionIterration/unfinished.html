@@ -1,0 +1,44 @@
+{% extends 'dh.html' %}
+{% block addcss %}
+    <style>
+    .table th, .table td {text-align: center;vertical-align: middle!important;}
+    </style>
+{% endblock %}
+{% block kuozhan %}
+<div class="panel panel-info" style="height: 97%;">
+    <div class="panel-heading">带继续操作的版本详情</div>
+    <div class="panel-body">
+        <div>
+            <table class="table table-responsive table-hover">
+                <thead>
+                    <th>项目编号</th>
+                    <th>发起人</th>
+                    <th>项目名称</th>
+                    <th>项目版本</th>
+                    <th>发起时间</th>
+                </thead>
+                <tbody>
+                    {% for version in infolist %}
+                        <td t='id'><a href="{% url 'unfinished' %}{{ version.id}}/" class="label label-success">{{ version.id}}</a></td>
+                        <td t="startman">{{ version.start_username }}</td>
+                        <td t="project_name">{{ version.project_name }}</td>
+                        <td t="poject_version">{{ version.project_version }}</td>
+                        <td t="operate_time">{{ version.operate_time }}</td>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block addjs %}
+    <script>
+        $(function () {
+            $('#m1-3').find('div').removeClass('hidden');
+            $('#m1-3').find('button').addClass('active');
+            $('#m1-3').find('button span').removeClass('glyphicon-chevron-left');
+            $('#m1-3').find('button span').addClass('glyphicon-chevron-down');
+            $('#m1-3').find('div').children('a:eq(2)').addClass('active');
+        })
+    </script>
+{% endblock %}

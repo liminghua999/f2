@@ -1,0 +1,95 @@
+{% extends 'dh.html' %}
+{% block addcss %}
+    <style>
+        .addpadding{padding: 2px;border: 1px #2b669a solid;margin-right: 5px;}
+    </style>
+{% endblock %}
+{% block kuozhan %}
+<div class="panel panel-info" style="height: 97%;">
+    <div class="panel-heading">未完成详细页</div>
+    <div class="panel-body">
+        <a href={% url 'unfinished' %} class="btn btn-default" >返回</a><br>
+        <div class="row">
+            <div class="col-md-3 addpadding">
+                <br><p class="text-center">发起部分</p><hr>
+                <div class="form form-horizontal">
+                    <div class="form-group row">
+                         <label for="dprojectnum" class="col-sm-4 control-label">项目编号</label>
+                         <div class="col-sm-7">
+                             <span class="form-control" id="dprojectnum">{{ data_dict.newversion.id }}</span>
+                         </div>
+                    </div>
+                    <div class="form-group row">
+                         <label for="dstartman" class="col-sm-4 control-label">发起人</label>
+                         <div class="col-sm-7">
+                             <span class="form-control" id="dstartman">{{ data_dict.newversion.start_username }}</span>
+                         </div>
+                    </div>
+                    <div class="form-group row">
+                         <label for="dprojectname" class="col-sm-4 control-label">项目名称</label>
+                         <div class="col-sm-7">
+                             <span class="form-control" id="dprojectname">{{ data_dict.newversion.project_name }}</span>
+                         </div>
+                    </div>
+                    <div class="form-group row">
+                         <label for="dprojectversion" class="col-sm-4 control-label">项目版本</label>
+                         <div class="col-sm-7">
+                             <span class="form-control" id="dprojectversion">{{ data_dict.newversion.project_version }}</span>
+                         </div>
+                    </div>
+                    <div class="form-group row">
+                         <label for="dupdatecontent" class="col-sm-4 control-label">更新内容</label>
+                         <div class="col-sm-7">
+                             <textarea  class="form-control" id="dupdatecontent">{{ data_dict.newversion.update_content }}</textarea>
+                         </div>
+                    </div>
+                    <div class="form-group row">
+                         <label for="dvtime" class="col-sm-4 control-label">发起时间</label>
+                         <div class="col-sm-7">
+                             <span class="form-control" id="dvtime">{{ data_dict.newversion.operate_time }}</span>
+                         </div>
+                    </div>
+                    <div class="form-group row">
+                         <label for="dnextman" class="col-sm-4 control-label">下一个操作人</label>
+                         <div class="col-sm-7">
+                             <span class="form-control" id="dnextman">{{ data_dict.newversion.inform_nextman }}</span>
+                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 addpadding">
+                <br><p class="text-center">研发部分</p><hr>
+                {% if data_dict.yanfa %}
+                {% else %}
+                    <a class="btn btn-info btn-lg col-sm-offset-4" href="{% url 'unfinished' %}{{ data_dict.newversion.id }}/yanfa">等待操作添加</a>
+                {% endif %}
+            </div>
+            <div class="col-md-3 addpadding">
+                <br><p class="text-center">测试部分</p><hr>
+                {% if data_dict.ceshi %}
+                {% else %}
+                    <a class="btn btn-info btn-lg col-sm-offset-4" href="{% url 'unfinished' %}{{ data_dict.newversion.id }}/ceshi">等待操作添加</a>
+                {% endif %}
+            </div>
+            <div class="col-md-2 addpadding">
+                <br><p class="text-center">发版部分</p><hr>
+                {% if data_dict.fabu %}
+                {% else %}
+                    <a class="btn btn-info btn-lg col-sm-offset-4" href="{% url 'unfinished' %}{{ data_dict.newversion.id }}/fabu">等待操作添加</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block addjs %}
+    <script>
+        $(function () {
+            $('#m1-3').find('div').removeClass('hidden');
+            $('#m1-3').find('button').addClass('active');
+            $('#m1-3').find('button span').removeClass('glyphicon-chevron-left');
+            $('#m1-3').find('button span').addClass('glyphicon-chevron-down');
+            $('#m1-3').find('div').children('a:eq(2)').addClass('active');
+        })
+    </script>
+{% endblock %}

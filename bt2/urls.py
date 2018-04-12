@@ -24,5 +24,5 @@ urlpatterns = [
     # url(r'^$',app1views.index),
     url(r'^hostinfo/',include(hostinfourls)),
     url(r'^$',RedirectView.as_view(url='/hostinfo/')),
-    url(r'^verson/',include(versionurls)),
+    url(r'^version/',include(versionurls)),
 ]

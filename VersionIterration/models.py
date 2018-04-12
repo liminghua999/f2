@@ -23,6 +23,7 @@ class NewVersion(models.Model):
     update_content = models.TextField(verbose_name='本次版本迭代的主要内容')
     operate_time = models.DateTimeField(auto_now_add=True)
     inform_nextman = models.CharField(max_length=16,verbose_name="被通知的下一位操作人")
+    status=models.BooleanField(default=False,verbose_name="版本迭代最终状态")
 
     def __str__(self):
         return '%s发起%s版本迭代'%(self.start_username,self.project_name)
@@ -33,7 +34,7 @@ class NewVersion(models.Model):
 class Development(models.Model):
     login_username = models.CharField(max_length=16, verbose_name="登录的用户")
     operate_username = models.CharField(max_length=16, verbose_name="操作人")
-    update_version_newapi = models.ForeignKey('Api',verbose_name='本次新增接口')
+    update_version_newapi = models.ManyToManyField('Api',verbose_name='本次新增接口')
     inform_nextman = models.CharField(max_length=16, verbose_name="被通知的下一位操作人",default='测试1')
     operate_time = models.DateTimeField(auto_now_add=True)
     newversionid=models.CharField(max_length=8, verbose_name="更新项目的编号",default=0)
@@ -47,10 +48,11 @@ class Development(models.Model):
 class Api(models.Model):
     project_name=models.CharField(max_length=16,verbose_name='归属项目名称')
     api_name=models.CharField(max_length=64,verbose_name='接口url')
+    api_introduce=models.CharField(max_length=64,verbose_name='接口说明',default=None)
 
 class Test(models.Model):
     operate_username = models.CharField(max_length=16, verbose_name="操作人")
-    test_content=models.ForeignKey('TestContent',verbose_name='测试的功能')
+    test_content=models.ManyToManyField('TestContent',verbose_name='测试的功能')
     operate_time = models.DateTimeField(auto_now_add=True)
     inform_nextman = models.CharField(max_length=16, verbose_name="被通知的下一位操作人",default='运维1')
     newversionid = models.CharField(max_length=8, verbose_name="更新项目的编号",default=0)
@@ -61,7 +63,7 @@ class Test(models.Model):
 class TestContent(models.Model):
     project_name = models.CharField(max_length=16, verbose_name='归属项目名称')
     content=models.CharField(max_length=64,verbose_name="测试的功能")
-    status_choices=(('1','OK'),('2','failed'))
+    status_choices=(('0','失败'),('1','成功'))
     status=models.CharField(choices=status_choices,verbose_name="测试结果的状态",max_length=2)
 
 class UpdateVersion(models.Model):
@@ -73,7 +75,7 @@ class UpdateVersion(models.Model):
     get_code_url=models.URLField(verbose_name="获取代码的地址")
     newversionid = models.CharField(max_length=8, verbose_name="更新项目的编号",default=0)
     def __str__(self):
-        return "%s于%s双版本更新"%(self.project_name,self.operate_time)
+        return "%s于%s版本更新"%(self.project_name,self.operate_time)
     class Meta:
         verbose_name='版本更新'
         verbose_name_plural='版本更新'

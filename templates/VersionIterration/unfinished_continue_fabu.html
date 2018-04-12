@@ -1,0 +1,98 @@
+{% extends 'dh.html' %}
+{% load get_data %}
+{% block addcss %}{% endblock %}
+{% block kuozhan %}
+<div class="panel panel-info" style="height: 97%;">
+    <div class="panel-heading">版本发布操作</div>
+    <div class="panel-body">
+        <a href="{% url 'unfinished' %}1/" class="btn btn-default" >返回上一级</a><hr>
+        <div class="form-horizontal">
+              <div class="form-group row">
+                 <label for="fprojectid" class="col-sm-2 col-sm-offset-1 control-label">项目编号</label>
+                 <div class="col-sm-3">
+                     <span id="fprojectid" class="form-control">{{ versiondata.id }}</span>
+                 </div>
+              </div>
+              <div class="form-group row">
+                 <label for="fprojectname" class="col-sm-2 col-sm-offset-1 control-label">项目名称</label>
+                 <div class="col-sm-3">
+                     <span id="fprojectname" class="form-control">{{ versiondata.project_name }}</span>
+                 </div>
+              </div>
+              <div class="form-group row">
+                 <label for="fprojectversion" class="col-sm-2 col-sm-offset-1 control-label">项目版本</label>
+                 <div class="col-sm-3">
+                     <span id="fprojectname" class="form-control">{{ versiondata.project_version }}</span>
+                 </div>
+              </div>
+
+            <form action="" method="post">
+                 {% for host in hostlist %}
+                    <div class="form-group row">
+                         <label for="{{ host }}" class="col-sm-2 col-sm-offset-1 control-label">项目所在主机</label>
+                         <div class="col-sm-3">
+                             <span class="form-control" id={{ host }}>{{ host }}</span>
+                         </div>
+                     </div>
+                 {% endfor %}
+              <div class="form-group row">
+                 <label for="foperateman" class="col-sm-2 col-sm-offset-1 control-label">操作人员</label>
+                 <div class="col-sm-3">
+                     <select  id="foperateman" class="form-control" >
+                         <option value="null">--请选择操作人--</option>
+                         {% get_operateman 4 %}
+                     </select>
+                 </div>
+              </div>
+              <div class="form-group row">
+                 <label for="fcodetype" class="col-sm-2 col-sm-offset-1 control-label">获取代码的方式</label>
+                 <div class="col-sm-3">
+                     <select  id="fcodetype" class="form-control" >
+                         <option value="null">--请选择获取代码的方式--</option>
+                         {% get_fabu_type %}
+                     </select>
+                 </div>
+              </div>
+                <div class="form-group row" id="typechange"></div>
+                <div class="form-group row" >
+                    <div class="col-sm-offset-4 col-sm-1">
+                        <button type="submit" class="btn btn-success form-control">发布</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block addjs %}
+    <script>
+        $(function () {
+            $('#m1-3').find('div').removeClass('hidden');
+            $('#m1-3').find('button').addClass('active');
+            $('#m1-3').find('button span').removeClass('glyphicon-chevron-left');
+            $('#m1-3').find('button span').addClass('glyphicon-chevron-down');
+            $('#m1-3').find('div').children('a:eq(2)').addClass('active');
+            codetypechange();
+        })
+    function codetypechange() {
+        $('#fcodetype').change(function () {
+            if ($(this).val() != '3' ){
+                $('#typechange').empty();
+                var d="<label for=\"fcode\" class=\"col-sm-2 col-sm-offset-1 control-label\">获取代码的地址</label>\n" +
+                    "                     <div class=\"col-sm-3\">\n" +
+                    "                         <input type=\"text\" id=\"fcode\" class=\"form-control\" placeholder=\"获取代码的地址\">\n" +
+                    "                     </div>";
+                $('#typechange').append(d);
+            }
+            else{
+                $('#typechange').empty();
+                var d="<label for=\"fcode\" class=\"col-sm-2 col-sm-offset-1 control-label\">上传代码文件</label>\n" +
+                    "                     <div class=\"col-sm-3\">\n" +
+                    "                         <input type=\"file\" id=\"fcode\" class=\"form-control\" placeholder=\"上传代码文件\">\n" +
+                    "                     </div>";
+                $('#typechange').append(d);
+            }
+        })
+    }
+    </script>
+{% endblock %}

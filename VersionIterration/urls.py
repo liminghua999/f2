@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^new/$',versionv.NewVersion,name="newversion"),
     url(r'^unfinished/$',versionv.CheckoutUnfinished,name='unfinished'),
     url(r'^unfinished/(?P<id>\d+)/$',versionv.UnfinishedDetail,name='unfinished_detail'),
+    url(r'^unfinished/(?P<id>\d+)/(?P<part>\w+)$',versionv.UnfinishedContinue,name='unfinished_continue'),
 ]

@@ -1,95 +1,358 @@
 {% extends 'dh.html' %}
-{% block addcss %}
-    <style>
-        .addpadding{padding: 2px;border: 1px #2b669a solid;margin-right: 5px;}
-    </style>
-{% endblock %}
+{% load get_data %}
+{% block addcss %}{% endblock %}
 {% block kuozhan %}
 <div class="panel panel-info" style="height: 97%;">
-    <div class="panel-heading">未完成详细页</div>
+    <div class="panel-heading">项目编号为&nbsp;<b>{{ data_dict.newversion.id }}</b>&nbsp;的未完成版本迭代详细页</div>
     <div class="panel-body">
-        <a href={% url 'unfinished' %} class="btn btn-default" >返回</a><br>
+        <a href={% url 'unfinished' %} class="btn btn-default" >返回上一级</a>
         <div class="row">
-            <div class="col-md-3 addpadding">
+            <div class="col-md-3 ">
                 <br><p class="text-center">发起部分</p><hr>
                 <div class="form form-horizontal">
                     <div class="form-group row">
                          <label for="dprojectnum" class="col-sm-4 control-label">项目编号</label>
-                         <div class="col-sm-7">
+                         <div class="col-sm-8">
                              <span class="form-control" id="dprojectnum">{{ data_dict.newversion.id }}</span>
                          </div>
                     </div>
                     <div class="form-group row">
                          <label for="dstartman" class="col-sm-4 control-label">发起人</label>
-                         <div class="col-sm-7">
+                         <div class="col-sm-8">
                              <span class="form-control" id="dstartman">{{ data_dict.newversion.start_username }}</span>
                          </div>
                     </div>
                     <div class="form-group row">
                          <label for="dprojectname" class="col-sm-4 control-label">项目名称</label>
-                         <div class="col-sm-7">
+                         <div class="col-sm-8">
                              <span class="form-control" id="dprojectname">{{ data_dict.newversion.project_name }}</span>
                          </div>
                     </div>
                     <div class="form-group row">
                          <label for="dprojectversion" class="col-sm-4 control-label">项目版本</label>
-                         <div class="col-sm-7">
+                         <div class="col-sm-8">
                              <span class="form-control" id="dprojectversion">{{ data_dict.newversion.project_version }}</span>
                          </div>
                     </div>
                     <div class="form-group row">
                          <label for="dupdatecontent" class="col-sm-4 control-label">更新内容</label>
-                         <div class="col-sm-7">
-                             <textarea  class="form-control" id="dupdatecontent">{{ data_dict.newversion.update_content }}</textarea>
+                         <div class="col-sm-8">
+                             <textarea readonly="readonly" style="background-color: white;" class="form-control " rows="6" id="dupdatecontent">{{ data_dict.newversion.update_content }}</textarea>
                          </div>
                     </div>
                     <div class="form-group row">
                          <label for="dvtime" class="col-sm-4 control-label">发起时间</label>
-                         <div class="col-sm-7">
+                         <div class="col-sm-8">
                              <span class="form-control" id="dvtime">{{ data_dict.newversion.operate_time }}</span>
                          </div>
                     </div>
                     <div class="form-group row">
-                         <label for="dnextman" class="col-sm-4 control-label">下一个操作人</label>
-                         <div class="col-sm-7">
+                         <label for="dnextman" class="col-sm-4 control-label">下一位操作人</label>
+                         <div class="col-sm-8">
                              <span class="form-control" id="dnextman">{{ data_dict.newversion.inform_nextman }}</span>
                          </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 addpadding">
+            <div class="col-md-4">
                 <br><p class="text-center">研发部分</p><hr>
                 {% if data_dict.yanfa %}
+                    <div class="form-horizontal">
+                      <div class="form-group row">
+                         <label for="yyoperateman" class="col-sm-3  control-label">操作人员</label>
+                         <div class="col-sm-9">
+                             <span class="form-control" id="yyoperateman">{{ data_dict.yanfa.operate_username }}</span>
+                         </div>
+                      </div>
+                      {% for onepai in data_dict.yanfa.update_version_newapi.all %}
+                          <div class="form-group row">
+                             <label for="{{ onepai.id }}" class="col-sm-3  control-label">API{{ onepai.id }}</label>
+                             <div class="col-sm-9">
+                                 <span class="form-control" id={{ onepai.id }}>{{ onepai.api_name }}</span>
+                             </div>
+                          </div>
+                          <div class="form-group row">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                 <textarea class="form-control" readonly="readonly" rows="4" style="background-color: white;">接口说明：{{ onepai.api_introduce }}</textarea>
+                             </div>
+                          </div>
+                      {% endfor %}
+                    <div class="form-group row">
+                         <label for="yyoperatetime" class="col-sm-3 control-label">操作时间</label>
+                         <div class="col-sm-9">
+                             <span class="form-control" id="yyoperatetime">{{ data_dict.yanfa.operate_time }}</span>
+                         </div>
+                    </div>
+                      <div class="form-group row">
+                         <label for="yyinform_nextman" class="col-sm-3 control-label">下一位操作人</label>
+                         <div class="col-sm-9">
+                             <span class="form-control" id="yyinform_nextman">{{ data_dict.yanfa.inform_nextman }}</span>
+                         </div>
+                    </div>
+                  </div>
                 {% else %}
-                    <a class="btn btn-info btn-lg col-sm-offset-4" href="{% url 'unfinished' %}{{ data_dict.newversion.id }}/yanfa">等待操作添加</a>
+                    <span class="btn btn-info btn-lg col-sm-offset-4" data-toggle="modal"  data-target="#yanfa">点击操作添加</span>
                 {% endif %}
             </div>
-            <div class="col-md-3 addpadding">
+            <div class="col-md-3 ">
                 <br><p class="text-center">测试部分</p><hr>
                 {% if data_dict.ceshi %}
+                    <div class="form-horizontal">
+                      <div class="form-group row">
+                         <label for="ccoperateman" class="col-sm-4  control-label">操作人员</label>
+                         <div class="col-sm-8">
+                             <span class="form-control" id="ccoperateman">{{ data_dict.ceshi.operate_username }}</span>
+                         </div>
+                      </div>
+                      {% for onecontent in data_dict.ceshi.test_content.all %}
+                          <div class="form-group row">
+                             <label for="{{ onecontent.id }}" class="col-sm-4  control-label">测试内容{{ onecontent.id }}</label>
+                             <div class="col-sm-8">
+                                 <textarea class="form-control" id="{{ onecontent.id }}" readonly="readonly" rows="2" style="background-color: white;">结果：{{ onecontent.get_status_display }}&#13;&#10;{{ onecontent.content }}</textarea>
+                             </div>
+                          </div>
+                      {% endfor %}
+                    <div class="form-group row">
+                         <label for="ccoperatetime" class="col-sm-4 control-label">操作时间</label>
+                         <div class="col-sm-8">
+                             <span class="form-control" id="ccoperatetime">{{ data_dict.ceshi.operate_time }}</span>
+                         </div>
+                    </div>
+                      <div class="form-group row">
+                         <label for="ccinform_nextman" class="col-sm-4 control-label">下一位操作人</label>
+                         <div class="col-sm-8">
+                             <span class="form-control" id="ccinform_nextman">{{ data_dict.ceshi.inform_nextman }}</span>
+                         </div>
+                    </div>
+                  </div>
+                {% elif data_dict.yanfa %}
+                    <span class="btn btn-info btn-lg col-sm-offset-4" data-toggle="modal"  data-target="#ceshi">点击操作添加</span>
                 {% else %}
-                    <a class="btn btn-info btn-lg col-sm-offset-4" href="{% url 'unfinished' %}{{ data_dict.newversion.id }}/ceshi">等待操作添加</a>
+                    <span class="btn btn-info btn-lg col-sm-offset-3">等待研发人员操作</span>
                 {% endif %}
             </div>
-            <div class="col-md-2 addpadding">
+            <div class="col-md-2 ">
                 <br><p class="text-center">发版部分</p><hr>
                 {% if data_dict.fabu %}
+
+                {% elif data_dict.ceshi %}
+                    <a class="btn btn-info btn-lg col-sm-offset-3" href="{% url 'unfinished' %}{{ data_dict.newversion.id }}/fabu">点击操作添加</a>
                 {% else %}
-                    <a class="btn btn-info btn-lg col-sm-offset-4" href="{% url 'unfinished' %}{{ data_dict.newversion.id }}/fabu">等待操作添加</a>
+                    <span class="btn btn-info btn-lg col-sm-offset-1">等待测试人员操作</span>
                 {% endif %}
             </div>
         </div>
     </div>
 </div>
+<!-- 研发添加操作模态对话框 -->
+<div class="modal fade" id="yanfa" tabindex="-1" role="dialog" aria-labelledby="yanfa">
+  <div class="modal-dialog" role="document" style="width: 60%">
+    <div class="modal-content">
+      <div class="modal-header bg-info">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">研发人员操作</h4>
+      </div>
+      <div class="modal-body">
+          <div class="form-horizontal">
+              <div class="form-group row">
+                 <label for="yprojectid" class="col-sm-2 col-sm-offset-2 control-label">项目编号</label>
+                 <div class="col-sm-6">
+                     <span id="yprojectid" class="form-control">{{ data_dict.newversion.id }}</span>
+                 </div>
+              </div>
+              <div class="form-group row">
+                 <label for="yprojectname" class="col-sm-2 col-sm-offset-2 control-label">项目名称</label>
+                 <div class="col-sm-6">
+                     <span id="yprojectname" class="form-control">{{ data_dict.newversion.project_name }}</span>
+                 </div>
+              </div>
+              <div class="form-group row">
+                 <label for="yprojectversion" class="col-sm-2 col-sm-offset-2 control-label">项目版本</label>
+                 <div class="col-sm-6">
+                     <span id="yprojectname" class="form-control">{{ data_dict.newversion.project_version }}</span>
+                 </div>
+              </div>
+              <div class="form-group row">
+                 <label for="yoperateman" class="col-sm-2 col-sm-offset-2 control-label">操作人员</label>
+                 <div class="col-sm-6">
+                     <select  id="yoperateman" class="form-control" >
+                         <option value="null">--请选择操作人--</option>
+                         {% get_operateman 2 %}
+                     </select>
+                 </div>
+              </div>
+              <div class="form-group row">
+                 <label for="yinform_nextman" class="col-sm-4 control-label">通知下一位操作人员</label>
+                 <div class="col-sm-6">
+                     <select class="form-control" id="yinform_nextman">
+                         <option value="null">--选择被通知人--</option>
+                         {% get_operateman '3' %}
+                     </select>
+                 </div>
+            </div>
+              <div class="form-group row">
+                  <div class="col-sm-6 col-sm-offset-4">
+                      <span style="color: coral;">填写API格式：APIurl+空格+文字说明</span>
+                  </div>
+              </div>
+              <div class="form-group row">
+                 <label for="yapi1" class="col-sm-3 col-sm-offset-1 control-label">版本API及说明</label>
+                 <div class="col-sm-6">
+                     <input type="text" id="yapi1" placeholder="本次版本新增的api; 若无，不填写" class="form-control">
+                 </div>
+                 <span class="glyphicon glyphicon-plus btn btn-default pull-left" id="addmoreapi"></span>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" id="yanfa_submit" class="btn btn-primary">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 测试添加操作模态对话框 -->
+<div class="modal fade" id="ceshi" tabindex="-1" role="dialog" aria-labelledby="ceshi">
+  <div class="modal-dialog" role="document" style="width: 60%">
+    <div class="modal-content">
+      <div class="modal-header bg-info">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">测试人员操作</h4>
+      </div>
+      <div class="modal-body">
+          <div class="form-horizontal">
+              <div class="form-group row">
+                 <label for="cprojectid" class="col-sm-2 col-sm-offset-2 control-label">项目编号</label>
+                 <div class="col-sm-6">
+                     <span id="cprojectid" class="form-control">{{ data_dict.newversion.id }}</span>
+                 </div>
+              </div>
+              <div class="form-group row">
+                 <label for="cprojectname" class="col-sm-2 col-sm-offset-2 control-label">项目名称</label>
+                 <div class="col-sm-6">
+                     <span id="cprojectname" class="form-control">{{ data_dict.newversion.project_name }}</span>
+                 </div>
+              </div>
+              <div class="form-group row">
+                 <label for="cprojectversion" class="col-sm-2 col-sm-offset-2 control-label">项目版本</label>
+                 <div class="col-sm-6">
+                     <span id="cprojectname" class="form-control">{{ data_dict.newversion.project_version }}</span>
+                 </div>
+              </div>
+              <div class="form-group row">
+                 <label for="coperateman" class="col-sm-2 col-sm-offset-2 control-label">操作人员</label>
+                 <div class="col-sm-6">
+                     <select  id="coperateman" class="form-control" >
+                         <option value="null">--请选择操作人--</option>
+                         {% get_operateman 3 %}
+                     </select>
+                 </div>
+              </div>
+              <div class="form-group row">
+                 <label for="cinform_nextman" class="col-sm-4 control-label">通知下一位操作人员</label>
+                 <div class="col-sm-6">
+                     <select class="form-control" id="cinform_nextman">
+                         <option value="null">--选择被通知人--</option>
+                         {% get_operateman '4' %}
+                     </select>
+                 </div>
+            </div>
+              <div class="form-group row">
+                  <div class="col-sm-6 col-sm-offset-4">
+                      <span style="color: coral;">填写测试结果格式：测试内容+空格+测试结果代码（0：OK，1：failed）</span>
+                  </div>
+              </div>
+              <div class="form-group row">
+                 <label for="ctest1" class="col-sm-3 col-sm-offset-1 control-label">测试内容及结果</label>
+                 <div class="col-sm-6">
+                     <input type="text" id="ctest1" placeholder="本次版本迭代测试内容1及结果" class="form-control">
+                 </div>
+                 <span class="glyphicon glyphicon-plus btn btn-default pull-left" id="addmoretest"></span>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" id="ceshi_submit" class="btn btn-primary">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 {% block addjs %}
     <script>
         $(function () {
+            active_zuo();
+            addapi_submit();
+            addceshicontent_submit();
+        });
+        function active_zuo() {
             $('#m1-3').find('div').removeClass('hidden');
             $('#m1-3').find('button').addClass('active');
             $('#m1-3').find('button span').removeClass('glyphicon-chevron-left');
             $('#m1-3').find('button span').addClass('glyphicon-chevron-down');
             $('#m1-3').find('div').children('a:eq(2)').addClass('active');
-        })
+        }
+        function addapi_submit() {
+            var num=1;
+            $('#addmoreapi').click(function () {
+                num+=1;
+                var newapi=document.createElement('div');
+                newapi.innerHTML="<div class=\"col-sm-6 col-sm-offset-4\">\n" +
+                    "<input type=\"text\" id=\"yapi"+num+"\" placeholder=\"本次版本新增的api; 若无，不填写\" class=\"form-control\">\n" +
+                    "</div><span class=\"glyphicon glyphicon-minus btn btn-default pull-left \"></span>";
+                newapi.classList.add('form-group');newapi.classList.add('row');
+                $('#yanfa .modal-body').append(newapi);
+            });
+            $('#yanfa .modal-body').on('click','.glyphicon-minus',function () {
+                num-=1;
+                $(this).parent().remove();
+            });
+            $('#yanfa_submit').click(function () {
+                alert(num);
+                d={'yoperateman':null,'yinform_nextman':null,'yapi1':null,'apinum':null};
+                d.yoperateman=$('#yoperateman').val();
+                d.yinform_nextman=$('#yinform_nextman').val();
+                for (var i=1;i<num+1;i++){y='yapi'+i;d[y]=$('#'+y).val();}
+                d.apinum=num;
+                console.log(d);
+                $.ajax("{% url 'unfinished' %}{{ data_dict.newversion.id }}/yanfa",
+                {'type':'POST','dataType':'JSON','data':d,success:function (res) {
+                    if (res == '0'){alert('操作成功');$('#yanfa').modal('hide');}
+                    else{alert(res);$('#yanfa').modal('hide');}
+                }})
+            });
+        }
+        function addceshicontent_submit() {
+            var num=1;
+            $('#addmoretest').click(function () {
+                num+=1;
+                var newtextcontent=document.createElement('div');
+                newtextcontent.innerHTML="<div class=\"col-sm-6 col-sm-offset-4\">\n" +
+                    "<input type=\"text\" id=\"ctest"+num+"\" placeholder=\"本次版本迭代测试内容"+num+"及结果\" class=\"form-control\">\n" +
+                    "</div><span class=\"glyphicon glyphicon-minus btn btn-default pull-left \"></span>";
+                newtextcontent.classList.add('form-group');newtextcontent.classList.add('row');
+                $('#ceshi .modal-body').append(newtextcontent);
+            });
+            $('#ceshi .modal-body').on('click','.glyphicon-minus',function () {
+                num-=1;
+                $(this).parent().remove();
+            });
+            $('#ceshi_submit').click(function () {
+                alert(num);
+                d={'coperateman':null,'cinform_nextman':null,'ctest1':null,'testcontentnum':null};
+                d.coperateman=$('#coperateman').val();
+                d.cinform_nextman=$('#cinform_nextman').val();
+                for (var i=1;i<num+1;i++){y='ctest'+i;d[y]=$('#'+y).val();}
+                d.testcontentnum=num;
+                console.log(d);
+                $.ajax("{% url 'unfinished' %}{{ data_dict.newversion.id }}/ceshi",
+                {'type':'POST','dataType':'JSON','data':d,success:function (res) {
+                    if (res == '0'){alert('操作成功');$('#ceshi').modal('hide');}
+                    else{alert(res);$('#ceshi').modal('hide');}
+                }})
+            });
+        }
     </script>
 {% endblock %}

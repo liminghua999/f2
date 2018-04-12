@@ -38,3 +38,15 @@ def get_project():
         for man in obj:
             res += '''<option value=%s>%s</option>''' % (man.service_name,man.service_name)
     return mark_safe(res)
+
+@register.simple_tag()
+def get_fabu_type():
+    res=""
+    try:
+        obj=models.UpdateVersion.get_code_choices
+    except Exception as e:
+        print(e)
+        mark_safe(res)
+    for type in obj:
+        res += '''<option value=%s>%s</option>''' %(type[0],type[1])
+    return mark_safe(res)

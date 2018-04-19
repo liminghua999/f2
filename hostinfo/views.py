@@ -51,6 +51,12 @@ def Dasboard(req):
     except Exception as e:
         print(e)
     return render(req,'dashboard.html',{'pre_add_ip':res,'ipnet':obj})
+
+def auto_addhost(req):
+    if req.method == "POST":
+        from get_hostinfo import get_hostinfo
+        res=get_hostinfo()
+        return HttpResponse(json.dumps(res))
 def filter(req):
     if req.method == "POST":
         f_type=req.POST.get('filter_type')

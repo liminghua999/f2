@@ -160,4 +160,10 @@ $(function () {
     //         else{alert(res.err)}
     //     }})
     // });
+    $('#autoaddhost').click(function () {
+        $.ajax('/hostinfo/autoaddhost/',{type:'POST',dataType:'JSON',success:function (res) {
+                if (res == '1'){alert("done")}
+                else{alert('err')}
+            }})
+    });
 })

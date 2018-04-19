@@ -13,7 +13,7 @@
     <div class="panel-body">
         <div class="container-fluid">
             <div class="row" id="filter">
-                <form class="col-md-8" action={% url 'filter' %} method="POST">
+                <form class="col-md-7" action={% url 'filter' %} method="POST">
                 {% csrf_token %}
                     <div class="col-sm-3">
                        <!-- <span>服务项目</span> -->
@@ -47,6 +47,9 @@
                 </form>
                 <div class="col-md-1 pull-right" role="button" id="ahhost">
                     <a class="btn btn-success pull-left" data-toggle="modal"  data-target="#addhost" >添加主机</a>
+                </div>
+                <div class="col-md-1 pull-right" role="button" id="autoaddhost">
+                    <a class="btn btn-success pull-left">自动添加主机</a>
                 </div>
                 <div class="col-md-1 pull-right" role="button" id="ahservice">
                     <a class="btn btn-success" data-toggle="modal" data-target="#addservice">添加服务</a>

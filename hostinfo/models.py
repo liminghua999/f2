@@ -11,17 +11,18 @@ from django.db import models
 
 class HostInfo(models.Model):
     IP=models.GenericIPAddressField(primary_key=True,db_index=True)
-    hostname=models.CharField(max_length=32)
+    hostname=models.CharField(max_length=32,default=None,null=True)
     type_choices=((0,"物理宿主机"),(1,"kvm虚拟机"),(2,'docker虚拟机'),(3,"pc机"),)
     type=models.SmallIntegerField(choices=type_choices,verbose_name="主机类型",default=1)
     own_to=models.GenericIPAddressField(default=None,null=True)
     labels=models.ManyToManyField('Services')
-    mem=models.CharField(max_length=16,verbose_name="总内存G")
+    mem=models.CharField(max_length=16,verbose_name="总内存G",null=True,default=None)
+    mac=models.CharField(max_length=32,verbose_name="主机MAC",default='0',null=True)
     # disk=models.CharField(max_length=64,verbose_name="磁盘情况")
     disk = models.ManyToManyField('DiskInfo',verbose_name="磁盘情况")
-    remarks=models.TextField(verbose_name="说明")
-    create_time=models.DateTimeField(verbose_name="创建时间")
-    destory_tiime=models.DateTimeField(verbose_name="销毁时间",null=True)
+    remarks=models.TextField(verbose_name="说明",null=True,default=None)
+    create_time=models.DateTimeField(verbose_name="创建时间",null=True,default=None)
+    destory_tiime=models.DateTimeField(verbose_name="销毁时间",null=True,default=None)
 
     def __str__(self):
         return "%s---%s"%(self.hostname,self.IP)

@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^addservice/$',hostinfov.addservice,name='addservice'),
     url(r'^delhost/$',hostinfov.HostDel,name="delhost"),
     url(r'^updatehost/$',hostinfov.HostUpdate,name="updatehost"),
+    url(r'^autoaddhost/$',hostinfov.auto_addhost,name="autoaddhost"),
 ]

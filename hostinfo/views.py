@@ -44,7 +44,13 @@ def addservice(req):
             res="添加服务失败，请重试！！"
     return HttpResponse(json.dumps(res))
 def Dasboard(req):
-    return render(req,'dashboard.html')
+    from get_notin_database_ip import diff_ip
+    res=diff_ip()
+    try:
+        obj=models.Ipnet.objects.all()
+    except Exception as e:
+        print(e)
+    return render(req,'dashboard.html',{'pre_add_ip':res,'ipnet':obj})
 def filter(req):
     if req.method == "POST":
         f_type=req.POST.get('filter_type')

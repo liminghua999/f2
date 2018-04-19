@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+# import os,django
+# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bt2.settings")
+# django.setup()
+
 
 from django.db import models
 
@@ -44,3 +48,8 @@ class DiskInfo(models.Model):
         verbose_name="磁盘信息"
         verbose_name_plural="磁盘信息"
 
+class Ipnet(models.Model):
+    ipnet=models.CharField(max_length=48,primary_key=True,db_index=True,verbose_name="IP网段")
+    ip_all_num=models.IntegerField(verbose_name="网段ip总数量")
+    ip_used_num=models.IntegerField(verbose_name="网段已用ip数量")
+    ip_free_num=models.IntegerField(verbose_name="网段可用ip数量")

@@ -2,9 +2,22 @@
 {% block addcss %}{% endblock %}
 {% block kuozhan %}
 <div class="panel panel-info" style="height: 97%;">
-    <div class="panel-heading"></div>
+    <div class="panel-heading">dashboard</div>
     <div class="panel-body">
-        <p>dashboard</p>
+        <p>需要添加到数据库的ip{{ pre_add_ip }}</p><hr>
+        <table class="table table-hover table-responsive table-condensed">
+            <thead class="text-center"><tr><th>IP网段</th><th>网段总IP数</th><th>网段已使用IP数</th><th>网段空闲IP数</th></tr></thead>
+            <tbody>
+                {% for obj in ipnet %}
+                <tr>
+                    <td>{{ obj.ipnet }}</td>
+                    <td>{{ obj.ip_all_num }}</td>
+                    <td>{{ obj.ip_used_num }}</td>
+                    <td>{{ obj.ip_free_num }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}

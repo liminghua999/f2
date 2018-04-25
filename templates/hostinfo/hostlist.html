@@ -1,4 +1,5 @@
 {% extends 'dh.html' %}
+{% load fenye %}
 {% block addcss %}
     <style>
     .table th, .table td {
@@ -6,6 +7,7 @@
         vertical-align: middle!important;
     }
     </style>
+    <link href="/static/css/fenye.css" rel="stylesheet" type="text/css">
 {% endblock %}
 {% block kuozhan %}
 <div class="panel panel-info" style="height: 97%">
@@ -56,10 +58,11 @@
                 </div>
             </div>
         </div>
+        {% paginate hostlists 10 %}
         <table class="table table-hover table-responsive table-condensed">
             <thead class="text-center"><tr><th>IP</th><th>主机名称</th><th>主机类型</th><th>归属物理宿主机</th><th>服务标签</th><th>总内存M</th><th>磁盘情况</th><th>说明</th><th>创建时间</th><th>销毁时间</th><th>操作</th></tr></thead>
             <tbody>
-                {% for objs in hostlists %}
+                {% for objs in cls_list %}
                 <tr>
                     <td t="ip">{{ objs.IP }}</td>
                     <td t="hostname">{{ objs.hostname }}</td>
@@ -89,7 +92,13 @@
             </tbody>
         </table>
     </div>
+    <br>
+    <div class="col-md-offset-2">
+        {% include 'fenye.html' %}
+    </div>
+
 </div>
+
 <div class="modal fade" id="addhost" tabindex="-1" role="dialog" aria-labelledby="addhost">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

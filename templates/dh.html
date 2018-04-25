@@ -48,10 +48,10 @@
 
 <div class="row container-fluid" style="margin-top: 51px;height: 94%;">
     <div class="col-md-2" style="border: solid 1px greenyellow;margin: 0;padding: 0; height: 100%;overflow:auto;">
-        <div class="list-group">
-            <button class="list-group-item">
-                <p class="text-center">操作面板</p>
-            </button>
+        <div class="list-group" >
+            <a class="list-group-item" href="{% url 'dashboard' %}" style="height: 70px;line-height: 50px;">
+                <p class="text-center ">操作面板</p>
+            </a>
             <div class="m1" id="m1-1">
                 <button class="list-group-item" ><p class="glyphicon glyphicon-oil">&nbsp;</p><b>主机信息</b><span class="glyphicon glyphicon-chevron-left pull-right"></span></button>
                 <div class="list-group  hidden" style="margin: 0;">

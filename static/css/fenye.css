@@ -1,0 +1,8 @@
+a {text-decoration:none;}
+#pagenavi {margin-left: 25%;}
+#pagenavi .previous-page,.next-page{float: left;display: inline-block;border: 1px seashell solid; margin: 2px;background-color: seashell;width: 60px;height: 40px;line-height: 40px;text-align: center;border-radius: 20%;}
+#pagenavi .p{float: left;border: 1px seashell solid; margin: 2px;background-color: seashell;width: 40px;height: 40px;line-height: 40px;text-align: center;border-radius: 20%;}
+#pagenavi .pp{float: left;margin: 2px;padding:2px; width: 20px;height: 40px;}
+#pagenavi .p:hover,.next-page:hover{background-color: deepskyblue; color: seashell;}
+#pagenavi .previous-page:hover{background-color: deepskyblue; color: seashell;}
+#pagenavi .current{background-color: deepskyblue; color: seashell;}

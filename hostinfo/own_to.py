@@ -13,19 +13,36 @@ def own_to():
         obj=models.HostInfo.objects.filter(type=0).values_list('IP',flat=True)
     except Exception as e:
         print(e)
-    if obj:
-        print('9')
+    if obj.exists():
         for kvmip in obj:
+            print('kvmip: '+kvmip)
             macclass=shell_info(kvmip,'cat /sys/class/net/vnet*/address','shell')
             macclass.give_result()
             res=macclass.get_info()
-            print('10')
-            print(list(res))
-            for mac in list(res):
+            maclist=[]
+            tmpmac=''
+            for i in res:
+                if str(i) == '\n':
+                    maclist.append(tmpmac)
+                    tmpmac = ''
+                    continue
+                tmpmac+=str(i)
+            print(maclist)
+            for mac in maclist:
+                rmac=mac.replace('fe','52',1)
+                print(rmac)
                 try:
-                    qobj = models.HostInfo.objects.filter(Q(Q(mac=mac) & Q(own_to=None)))
+                    qobj = models.HostInfo.objects.filter(Q(Q(mac__iexact=rmac) & Q(own_to=None)))
                 except Exception as e:
                     print(e)
-                if qobj:
-                    qobj.update(own_to=kvmip)
+                if qobj.exists():
+                    try:
+                        qobj.update(own_to=kvmip)
+                        for i in qobj:
+                            i.save()
+                    except Exception as e:
+                        print('update kvm-vm failed')
+                        print(e)
+                else:
+                    print(rmac+': filter none')
 

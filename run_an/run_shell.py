@@ -12,54 +12,6 @@ from ansible.plugins.callback import CallbackBase
 get_result={'status':None,'data':None}
 hostfile=os.path.join(os.path.dirname(os.path.abspath(__file__)),'aninfo/hosts')
 
-class ops_ip():
-    def __init__(self,IP,Group):
-        self.IP=IP
-        self.Group=Group
-    def add_ip(self):
-        keyword = str(self.Group)+']'
-        i = '\n'+str(self.IP)
-        try:
-            file = open(hostfile, 'r')
-            content = file.read()
-            post = content.find(keyword)
-            if post != -1:
-                content = content[:post + len(keyword)] + i + content[post + len(keyword):]
-                file = open(hostfile, 'w')
-                file.write(content)
-            file.close()
-        except Exception as e:
-            print(e)
-            return 0
-        return 1
-    def check_ip(self):
-        try:
-            file = open(hostfile, 'r')
-            content = file.read()
-            post = content.find(self.IP)
-            file.close()
-            if post != -1:
-                return 1
-            else:
-                return 0
-        except Exception as e:
-            print(e)
-            return 0
-    def del_ip(self):
-        keyword='\n'+str(self.IP)
-        try:
-            file = open(hostfile, 'r')
-            content = file.read()
-            post = content.find(keyword)
-            if post != -1:
-                content = content[:post] + content[post + len(keyword):]
-                file = open(hostfile, 'w')
-                file.write(content)
-            file.close()
-        except Exception as e:
-            print(e)
-            return 0
-        return 1
 class ResultCallback(CallbackBase):
     def v2_runner_on_ok(self, result, **kwargs):
         global get_result
@@ -73,9 +25,9 @@ class ResultCallback(CallbackBase):
         get_result['status'] = 'failed'
         get_result['data'] = result._result
 def an_shell(IP,cmd,Module='shell'):
-    r=ops_ip(IP,'kaifa')
-    if not r.check_ip():
-        r.add_ip()
+    # r=ops_ip(IP,'kaifa')
+    # if not r.check_ip():
+    #     r.add_ip()
     Options = namedtuple('Options', ['connection', 'module_path', 'forks', 'become', 'become_method', 'become_user', 'check', 'diff'])
     # initialize needed objects
     loader = DataLoader()
@@ -126,8 +78,8 @@ class Get_setup_info(object):
         self.IP=IP
         self.result=None
     def give_result(self):
-        data=an_shell(self.IP,'','setup')
-        self.result=data['data']['ansible_facts']
+        da=an_shell(self.IP,'','setup')
+        self.result=da['data']['ansible_facts']
     def diskinfo(self):
         d=[{i['mount']:{"total":str(i['size_total']/ 1024 / 1024),"free":str(i['size_available']/ 1024 / 1024)}} for i in self.result['ansible_mounts']]
         return d
@@ -164,6 +116,68 @@ class shell_info(object):
         return data
 
 
-# r=Get_setup_info('192.168.0.211')
+# r=Get_setup_info('192.168.0.80')
 # r.give_result()
 # print(r.hostnameinfo())
+# print(r.meminfo())
+
+class ops_ip():
+    def __init__(self,IP):
+        self.IP=IP
+    def add_ip(self):
+        keyword = 'add]'
+        i = '\n'+str(self.IP)
+        try:
+            file = open(hostfile, 'r')
+            content = file.read()
+            post = content.find(keyword)
+            if post != -1:
+                content = content[:post + len(keyword)] + i + content[post + len(keyword):]
+                file = open(hostfile, 'w')
+                file.write(content)
+            file.close()
+        except Exception as e:
+            print(e)
+            return 0
+        return 1
+    def check_ip(self):
+        # try:
+        #     file = open(hostfile, 'r')
+        #     content = file.read()
+        #     post = content.find(self.IP)
+        #     file.close()
+        #     if post != -1:
+        #         return 1
+        #     else:
+        #         return 0
+        # except Exception as e:
+        #     print(e)
+        #     return 0
+        res=shell_info(self.IP,'hostname','shell')
+        res.give_result()
+        r=res.get_info()
+        return r
+    def del_ip(self):
+        keyword='\n'+str(self.IP)
+        try:
+            file = open(hostfile, 'r')
+            content = file.read()
+            post = content.find(keyword)
+            if post != -1:
+                content = content[:post] + content[post + len(keyword):]
+                file = open(hostfile, 'w')
+                file.write(content)
+            file.close()
+        except Exception as e:
+            print(e)
+            return 0
+        return 1
+
+# l=ops_ip('192.168.0.81')
+# r=l.check_ip()
+# print(r)
+# if not r:
+#     l.add_ip()
+#     print('add 81')
+# else:
+#     print(r)

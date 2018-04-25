@@ -12,7 +12,7 @@ from django.db import models
 class HostInfo(models.Model):
     IP=models.GenericIPAddressField(primary_key=True,db_index=True)
     hostname=models.CharField(max_length=32,default=None,null=True)
-    type_choices=((0,"物理宿主机"),(1,"kvm虚拟机"),(2,'docker虚拟机'),(3,"pc机"),)
+    type_choices=((0,"物理宿主机"),(1,"kvm虚拟机"),(2,'docker虚拟机'),(3,"pc机"),(4,'网络设备'))
     type=models.SmallIntegerField(choices=type_choices,verbose_name="主机类型",default=1)
     own_to=models.GenericIPAddressField(default=None,null=True)
     labels=models.ManyToManyField('Services')

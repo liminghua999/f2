@@ -6,20 +6,18 @@ import json
 from run_an.run_shell import Get_setup_info
 
 def disk_add(data):
-    print(data)
-    print(type(data))
     tmp = []
     for option in data:
         for i in option:
-            print(i)
-            print(option[i]['total'])
-        try:
-            obj=models.DiskInfo.objects.create(mount_name=i,mount_size=option[i]['total'])
-        except Exception as e:
-            print("disk:")
-            print(e)
-            return False
-        tmp.append(obj.id)
+            # print(i)
+            # print(option[i]['total'])
+            try:
+                obj=models.DiskInfo.objects.create(mount_name=i,mount_size=option[i]['total'])
+            except Exception as e:
+                print("disk:")
+                print(e)
+                return False
+            tmp.append(obj.id)
     return tmp
 def host_add(req):
     if req.method == "POST":

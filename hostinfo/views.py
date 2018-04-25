@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.shortcuts import render, HttpResponse,HttpResponseRedirect
-from hostinfo import models
 from get_data import *
 import json
 # from django.core.serializers.json import DjangoJSONEncoder
@@ -54,8 +53,10 @@ def Dasboard(req):
 
 def auto_addhost(req):
     if req.method == "POST":
-        from get_hostinfo import get_hostinfo
-        res=get_hostinfo()
+        from Get_Hostinfo import Get_Hostinfo
+        res=Get_Hostinfo()
+        print('auto')
+        print(res)
         return HttpResponse(json.dumps(res))
 def filter(req):
     if req.method == "POST":

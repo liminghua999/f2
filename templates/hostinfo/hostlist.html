@@ -15,15 +15,20 @@
     <div class="panel-body">
         <div class="container-fluid">
             <div class="row" id="filter">
-                <form class="col-md-7" action={% url 'filter' %} method="POST">
+                <form class="col-md-7" action={% url 'filter' %} method="GET">
                 {% csrf_token %}
                     <div class="col-sm-3">
                        <!-- <span>服务项目</span> -->
                         <select name="filter_label" id="filter_label" class="form-control">
                                 <option value="null">---服务项目---</option>
                                 {% for op in service_select %}
-                                    <option value={{ op }}>{{ op }}</option>
+                                    {% ifequal  op  filtervalue.data.filter_label  %}
+                                        <option value="{{ op }}" selected="selected">{{ op }}</option>
+                                    {% else %}
+                                        <option value="{{ op }}">{{ op }}</option>
+                                    {% endifequal %}
                                 {% endfor %}
+                                <option value="11">{{ filtervalue.data.filter_label }}</option>
                         </select>
                     </div>
                     <div class="col-sm-3">
@@ -31,8 +36,13 @@
                         <select name="filter_type" id="filter_type" class="form-control" >
                             <option value="null">---主机类型---</option>
                             {% for types in type_select %}
-                                <option value={{ types.0 }}>{{ types.1 }}</option>
+                                {% ifequal  types.0  filtervalue.data.filter_type %}
+                                    <option value="{{ types.0 }}" selected="selected">{{ types.1 }}</option>
+                                {% else %}
+                                    <option value="{{ types.0 }}">{{ types.1 }}</option>
+                                {% endifequal %}
                             {% endfor %}
+                            <option value="9">{{ filtervalue.data.filter_type }}</option>
                         </select>
                     </div>
                     <div class="col-sm-2">

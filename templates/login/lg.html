@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login Form</title>
+  <link href="/static/css/lg.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="login" id="model_login">
+   <h1>Login</h1>
+    <input type="text" name="user" placeholder="请输入账户或者账户邮箱" required="required" />
+    <div>
+        <input type="password" name="pwd" placeholder="密码" required="required" />
+        <a href="javascript(void)" style=" display: inline-block;margin-top: 0px;margin-bottom: 3px;">忘记密码？</a>
+    </div>
+    <div class="yy">
+        <input name="email_code" class="email-code" type="text" placeholder="请输入邮箱验证码" />
+        <span id="fetch_code" class="fetch-code">获取邮箱验证码</span>
+        <span id="yerr" style="color: red"></span>
+    </div>
+    <div class="inp clearfix">
+        <div class="t"><input name="code" class="check-code" type="text" placeholder="请输入验证码" /></div>
+        <div class="y">
+            <img class="check-img" id="check-img" src={% url 'check_code' %} alt="验证码">
+        </div>
+    </div>
+
+    <button type="submit" id="lsubmit" class="btn btn-primary btn-block btn-large"> 登  录 </button>
+</div>
+
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/cf.js"></script>
+<script src="/static/js/jquery.cookie.js"></script>
+<script src="/static/js/lg.js"></script>
+
+</body>
+</html>

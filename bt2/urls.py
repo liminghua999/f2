@@ -18,11 +18,15 @@ from django.views.generic import RedirectView
 from django.contrib import admin
 from hostinfo import urls as hostinfourls
 from VersionIterration import urls as versionurls
+from login import views as lviews
+from login import yanzhengma
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    # url(r'^$',app1views.index),
     url(r'^hostinfo/',include(hostinfourls)),
-    url(r'^$',RedirectView.as_view(url='/hostinfo/')),
+    url(r'^$',lviews.Login,name='login'),
+    url(r'^lgout/$',lviews.LoginOut,name="lgout"),
+    url(r'^lgecode/$',lviews.send_msg,name="sendecode"),
+    url(r'^checkcode/$',yanzhengma.check_code,name="check_code"),
     url(r'^version/',include(versionurls)),
 ]

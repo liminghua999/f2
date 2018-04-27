@@ -81,7 +81,7 @@ $(function () {
         $.ajax('/hostinfo/addservice/',{
             type:'POST',dataType:'JSON',data:d,success:
                 function (res) {
-                if (res == 'true'){$('#addservice').modal('hide');window.location.reload();}
+                if (res == true){ $('#addservice').modal('hide');window.location.href='/hostinfo/hostlist/';}
                 else {alert(res);$('#addservice').modal('hide');}
                 }
             })

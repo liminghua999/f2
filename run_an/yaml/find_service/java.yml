@@ -1,0 +1,6 @@
+---
+  - hosts: '{{ Hosts }}'
+    remote_user: root
+    tasks:
+      - name: find java services
+        shell: ps -ef | grep java | grep -v grep | awk  -F' ' '{print $9}' | awk -F'/' '{print $3}'

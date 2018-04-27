@@ -25,9 +25,6 @@ class ResultCallback(CallbackBase):
         get_result['status'] = 'failed'
         get_result['data'] = result._result
 def an_shell(IP,cmd,Module='shell'):
-    # r=ops_ip(IP,'kaifa')
-    # if not r.check_ip():
-    #     r.add_ip()
     Options = namedtuple('Options', ['connection', 'module_path', 'forks', 'become', 'become_method', 'become_user', 'check', 'diff'])
     # initialize needed objects
     loader = DataLoader()
@@ -70,8 +67,8 @@ def an_shell(IP,cmd,Module='shell'):
     finally:
         if tqm is not None:
             tqm.cleanup()
-#r=an_shell('192.168.0.212','','setup')
-
+r=an_shell('192.168.0.212','hostname')
+print(r)
 
 class Get_setup_info(object):
     def __init__(self,IP):

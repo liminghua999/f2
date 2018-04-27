@@ -1,0 +1,6 @@
+---
+  - hosts: '{{ Hosts }}'
+    remote_user: root
+    tasks:
+      - name: find mysql services
+        shell: ps -ef | grep mysql | grep -v grep  | wc -l

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hostinfo.apps.HostinfoConfig',
     'VersionIterration.apps.VersioniterrationConfig',
+    'login.apps.LoginConfig',
 ]
 
 MIDDLEWARE = [

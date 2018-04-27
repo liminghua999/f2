@@ -82,8 +82,6 @@ def filter(req):
         res={'data':{'filter_type':None,'filter_service':None},'err':'0'}
         res['data']['filter_type']=int(f_type)
         res['data']['filter_service'] = f_service
-        print(f_service)
-        print(f_type)
         try:
             sobj = get_service_name_data()
             tobj = get_type_data()

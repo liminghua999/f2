@@ -22,7 +22,7 @@
                         <select name="filter_label" id="filter_label" class="form-control">
                                 <option value="9999">---服务项目---</option>
                                 {% for op in service_select %}
-                                    {% ifequal  op.service_name  filtervalue.data.filter_service  %}
+                                    {% ifequal  op filtervalue.data.filter_service  %}
                                         <option value="{{ op }}" selected="selected">{{ op }}</option>
                                     {% else %}
                                         <option value="{{ op }}">{{ op }}</option>

@@ -80,7 +80,7 @@ def filter(req):
         f_service=req.GET.get('filter_label')
         f_service=str(f_service).encode('utf-8')
         res={'data':{'filter_type':None,'filter_service':None},'err':'0'}
-        res['data']['filter_type']=f_type
+        res['data']['filter_type']=int(f_type)
         res['data']['filter_service'] = f_service
         print(f_service)
         print(f_type)
@@ -89,7 +89,7 @@ def filter(req):
             tobj = get_type_data()
         except Exception as e:
             print(e)
-        if f_type != 'null' and f_service != 'null':
+        if f_type != '9999' and f_service != '9999':
             try:
                 obj1 = models.HostInfo.objects.filter(type=f_type,labels__service_name__contains=f_service)
             except Exception as e:
@@ -97,7 +97,7 @@ def filter(req):
                 print(e)
             return render(req, 'hostinfo/hostlist.html',
                           {"hostlists": obj1, 'service_select': sobj, "type_select": tobj, 'cu':username,'filtervalue':res,})
-        elif f_service != 'null' and f_type  == 'null':
+        elif f_service != '9999' and f_type  == '9999':
             try:
                 obj2 = models.HostInfo.objects.filter(labels__service_name__contains=f_service)
             except Exception as e:
@@ -105,7 +105,7 @@ def filter(req):
                 print(e)
             return render(req, 'hostinfo/hostlist.html',
                           {"hostlists": obj2, 'service_select': sobj, "type_select": tobj, 'cu':username,'filtervalue':res,})
-        elif f_service == 'null' and f_type  != 'null':
+        elif f_service == '9999' and f_type  != '9999':
             try:
                 obj3 = models.HostInfo.objects.filter(type=f_type)
             except Exception as e:

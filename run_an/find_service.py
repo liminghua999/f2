@@ -25,7 +25,9 @@ def one_host(IP,ymlfilename):
         return False
 
 def find_java(hosts):
+    ''' return service tomcat name :list'''
     return one_host(hosts,'java.yml')
 
 def find_mysql(hosts):
+    ''' return mysql process number :str_number'''
     return one_host(hosts,'mysql.yml')

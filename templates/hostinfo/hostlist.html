@@ -20,21 +20,20 @@
                     <div class="col-sm-3">
                        <!-- <span>服务项目</span> -->
                         <select name="filter_label" id="filter_label" class="form-control">
-                                <option value="null">---服务项目---</option>
+                                <option value="9999">---服务项目---</option>
                                 {% for op in service_select %}
-                                    {% ifequal  op  filtervalue.data.filter_label  %}
+                                    {% ifequal  op.service_name  filtervalue.data.filter_service  %}
                                         <option value="{{ op }}" selected="selected">{{ op }}</option>
                                     {% else %}
                                         <option value="{{ op }}">{{ op }}</option>
                                     {% endifequal %}
                                 {% endfor %}
-                                <option value="11">{{ filtervalue.data.filter_label }}</option>
                         </select>
                     </div>
                     <div class="col-sm-3">
                         <!-- <span>主机类型</span>-->
                         <select name="filter_type" id="filter_type" class="form-control" >
-                            <option value="null">---主机类型---</option>
+                            <option value="9999">---主机类型---</option>
                             {% for types in type_select %}
                                 {% ifequal  types.0  filtervalue.data.filter_type %}
                                     <option value="{{ types.0 }}" selected="selected">{{ types.1 }}</option>
@@ -42,7 +41,6 @@
                                     <option value="{{ types.0 }}">{{ types.1 }}</option>
                                 {% endifequal %}
                             {% endfor %}
-                            <option value="9">{{ filtervalue.data.filter_type }}</option>
                         </select>
                     </div>
                     <div class="col-sm-2">

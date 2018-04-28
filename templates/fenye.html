@@ -1,13 +1,13 @@
 <div id="pagenavi"  class="noselect" >
     {% if cls_list.has_previous %}
-        <a class="previous-page" href="?p={{ cls_list.previous_page_number }}">
+        <a class="previous-page" href="?p={{ cls_list.previous_page_number }}&filter_label={{ filtervalue.data.filter_service }}&filter_type={{ filtervalue.data.filter_type }}">
             <span class="icon-previous">上一页</span>
         </a>
     {% endif %}
     {% if first_page == current_page %}
         <span class="p current">1</span>
     {% else %}
-        <a href="?p=1" class="p">1</a>
+        <a href="?p=1&filter_label={{ filtervalue.data.filter_service }}&filter_type={{ filtervalue.data.filter_type }}" class="p">1</a>
     {% endif %}
     {% if pages_first > 2 %}
         <span class="pp">...</span>
@@ -16,7 +16,7 @@
         {% if page == current_page %}
             <span class="p current">{{ page }}</span>
         {% else %}
-            <a href="?p={{ page }}" class="p"><span>{{ page }}</span></a>
+            <a href="?p={{ page }}&filter_label={{ filtervalue.data.filter_service }}&filter_type={{ filtervalue.data.filter_type }}" class="p"><span>{{ page }}</span></a>
         {% endif %}
     {% endfor %}
     {% if pages_last < last_page %}
@@ -27,13 +27,13 @@
         {% if last_page == current_page %}
             <span class="p current">{{ last_page }}</span>
         {% else %}
-            <a href="?p={{ last_page }}" class="p"><span>{{ last_page }}</span></a>
+            <a href="?p={{ last_page }}&filter_label={{ filtervalue.data.filter_service }}&filter_type={{ filtervalue.data.filter_type }}" class="p"><span>{{ last_page }}</span></a>
         {% endif %}
     {% endif %}
 
 
     {% if cls_list.has_next %}
-        <a class="next-page" href="?p={{ cls_list.next_page_number }}">
+        <a class="next-page" href="?p={{ cls_list.next_page_number }}&filter_label={{ filtervalue.data.filter_service }}&filter_type={{ filtervalue.data.filter_type }}">
             <span class="icon-next">下一页</span>
         </a>
     {% endif %}

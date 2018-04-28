@@ -76,7 +76,7 @@ def filter(req):
     if req.method == "GET":
         from login.get_login_username import get_login_username
         username = get_login_username(req)
-        f_type=req.GET.get('filter_type')
+        f_type=req.GET.get('filter_type',9999)
         f_service=req.GET.get('filter_label')
         f_service=str(f_service).encode('utf-8')
         res={'data':{'filter_type':None,'filter_service':None},'err':'0'}
@@ -112,5 +112,3 @@ def filter(req):
             return render(req, 'hostinfo/hostlist.html', {"hostlists":obj3,'service_select':sobj,"type_select":tobj,'cu':username,'filtervalue':res,})
         else:
             return HttpResponseRedirect('/hostinfo/hostlist')
-    else:
-        return HttpResponseRedirect('/hostinfo/hostlist')

@@ -23,7 +23,7 @@ class NewVersion(models.Model):
     update_content = models.TextField(verbose_name='本次版本迭代的主要内容')
     operate_time = models.DateTimeField(auto_now_add=True)
     inform_nextman = models.CharField(max_length=16,verbose_name="被通知的下一位操作人")
-    status=models.BooleanField(default=False,verbose_name="版本迭代最终状态")
+    status=models.CharField(max_length=16,verbose_name="版本迭代当前进度状态")
 
     def __str__(self):
         return '%s发起%s版本迭代'%(self.start_username,self.project_name)

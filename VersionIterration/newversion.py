@@ -18,7 +18,7 @@ def Newversion(req):
     if gstartman and gproject_version and gproject_name and gupdatecontent and ginform_nextman:
         try:
             models.NewVersion.objects.create(start_username=gstartman,project_name=gproject_name,project_version=gproject_version,
-                                                 update_content=gupdatecontent,inform_nextman=ginform_nextman)
+                                                 update_content=gupdatecontent,inform_nextman=ginform_nextman,status=ginform_nextman)
         except Exception as e:
             print(e)
             return "发起失败，请重试"

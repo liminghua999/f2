@@ -36,23 +36,33 @@ def yanfa(req,id):
             logging.error('写入开发操作失败，请重试！！')
             res="操作失败，请重试！！"
             return  res
-        try:
-            projectname=models.NewVersion.objects.filter(id=id)[0]
-            print(projectname.project_name)
-            for oneapi in apilist:
-                oneapidata=oneapi.split()
-                apiurl=oneapidata[0]
-                print(apiurl)
-                apiintroduce=oneapidata[1]
-                print(apiintroduce)
-                apiobj=models.Api.objects.create(project_name=projectname.project_name,api_name=apiurl,api_introduce=apiintroduce)
-                yanfaobj.update_version_newapi.add(apiobj.id)
-                yanfaobj.save()
-        except Exception as e:
-            logging.error(e)
-            logging.error('api数据写入失败')
-            res="api数据写入失败"
-            return res
+        if res == '0':
+            try:
+                projectname=models.NewVersion.objects.filter(id=id)[0]
+                print(projectname.project_name)
+                for oneapi in apilist:
+                    oneapidata=oneapi.split()
+                    apiurl=oneapidata[0]
+                    print(apiurl)
+                    apiintroduce=oneapidata[1]
+                    print(apiintroduce)
+                    apiobj=models.Api.objects.create(project_name=projectname.project_name,api_name=apiurl,api_introduce=apiintroduce)
+                    yanfaobj.update_version_newapi.add(apiobj.id)
+                    yanfaobj.save()
+            except Exception as e:
+                logging.error(e)
+                logging.error('api数据写入失败')
+                res="api数据写入失败"
+                return res
+            if res == '0':
+                try:
+                    projectname = models.NewVersion.objects.filter(id=id)
+                    projectname.update(status=yanfaobj.inform_nextman)
+                except Exception as e:
+                    logging.error(e)
+                    logging.error('newversion status 数据写入失败')
+                    res = "newversion status 数据写入失败"
+                    return res
         return res
     else:
         res="有选项未填写！！"
@@ -76,24 +86,34 @@ def ceshi(req,id):
             logging.error('创建测试的数据失败')
             res = "操作失败，请重试！！"
             return res
-        try:
-            projectname = models.NewVersion.objects.filter(id=id)[0]
-            print(projectname.project_name)
-            for onecontent in testcontentlist:
-                onecontentdata = onecontent.split()
-                testcontent = onecontentdata[0]
-                print(testcontent)
-                teststatus = onecontentdata[1]
-                print(teststatus)
-                testcontentobj = models.TestContent.objects.create(project_name=projectname.project_name, content=testcontent,
-                                                   status=teststatus)
-                ceshiobj.test_content.add(testcontentobj.id)
-                ceshiobj.save()
-        except Exception as e:
-            logging.error(e)
-            logging.error('创建测试内容的数据失败')
-            res = "测试内容数据写入失败"
-            return res
+        if res == '0':
+            try:
+                projectname = models.NewVersion.objects.filter(id=id)[0]
+                print(projectname.project_name)
+                for onecontent in testcontentlist:
+                    onecontentdata = onecontent.split()
+                    testcontent = onecontentdata[0]
+                    print(testcontent)
+                    teststatus = onecontentdata[1]
+                    print(teststatus)
+                    testcontentobj = models.TestContent.objects.create(project_name=projectname.project_name, content=testcontent,
+                                                       status=teststatus)
+                    ceshiobj.test_content.add(testcontentobj.id)
+                    ceshiobj.save()
+            except Exception as e:
+                logging.error(e)
+                logging.error('创建测试内容的数据失败')
+                res = "测试内容数据写入失败"
+                return res
+            if res == '0':
+                try:
+                    projectname = models.NewVersion.objects.filter(id=id)
+                    projectname.update(status=ceshiobj.inform_nextman)
+                except Exception as e:
+                    logging.error(e)
+                    logging.error('newversion status 数据写入失败')
+                    res = "newversion status 数据写入失败"
+                    return res
         return res
     else:
         res = "有选项未填写！！"

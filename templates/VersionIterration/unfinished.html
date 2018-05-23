@@ -16,6 +16,7 @@
                     <th>项目名称</th>
                     <th>项目版本</th>
                     <th>发起时间</th>
+                    <th>当前进度</th>
                 </thead>
                 <tbody>
                     {% for version in infolist %}
@@ -24,6 +25,7 @@
                         <td t="project_name">{{ version.project_name }}</td>
                         <td t="poject_version">{{ version.project_version }}</td>
                         <td t="operate_time">{{ version.operate_time }}</td>
+                        <td t="cur_status">等待<span class="label label-info">{{ version.status }}</span>操作</td>
                     {% endfor %}
                 </tbody>
             </table>

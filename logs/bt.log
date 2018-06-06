@@ -315,3 +315,8 @@ INFO 2018-06-06 22:16:15,934 C:\Users\lmh\AppData\Roaming\Python\Python27\site-p
 INFO 2018-06-06 22:16:16,661 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /static/js/cf.js HTTP/1.1" 304 0
 INFO 2018-06-06 22:16:17,335 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /static/js/jquery.cookie.js HTTP/1.1" 304 0
 INFO 2018-06-06 22:16:18,015 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /static/js/lg.js HTTP/1.1" 304 0
+DEBUG 2018-06-06 22:19:58,016 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\db\backends\utils.py utils.py utils execute 90: (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-06-06 22:19:58,019 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\db\backends\utils.py utils.py utils execute 90: (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()

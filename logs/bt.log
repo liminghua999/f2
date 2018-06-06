@@ -268,3 +268,50 @@ Traceback (most recent call last):
 VariableDoesNotExist: Failed lookup for key [cu] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x7f6cc03a6a28>>, 'user': <SimpleLazyObject: <function <lambda> at 0x7f6cc03a6848>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x7f6cc03c4190>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x7f6cc03c36d0>, u'request': <WSGIRequest: GET '/version/unfinished/'>}, {}, {u'infolist': <QuerySet [<NewVersion: \u7814\u53d11\u53d1\u8d77\u652f\u4ed8\u7cfb\u7edf\u7248\u672c\u8fed\u4ee3>]>}]"
 DEBUG 2018-05-23 03:38:17,591 /usr/lib64/python2.7/site-packages/django/db/backends/utils.py utils.py utils execute 90: (0.000) SELECT "VersionIterration_newversion"."id", "VersionIterration_newversion"."login_username", "VersionIterration_newversion"."start_username", "VersionIterration_newversion"."project_name", "VersionIterration_newversion"."project_version", "VersionIterration_newversion"."update_content", "VersionIterration_newversion"."operate_time", "VersionIterration_newversion"."inform_nextman", "VersionIterration_newversion"."status" FROM "VersionIterration_newversion"; args=()
 INFO 2018-05-23 03:38:17,593 /usr/lib64/python2.7/site-packages/django/core/servers/basehttp.py basehttp.py basehttp log_message 124: "GET /version/unfinished/ HTTP/1.1" 200 6772
+DEBUG 2018-06-06 22:04:20,453 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\db\backends\utils.py utils.py utils execute 90: (0.002) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-06-06 22:04:20,457 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\db\backends\utils.py utils.py utils execute 90: (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+INFO 2018-06-06 22:04:23,483 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET / HTTP/1.1" 200 1428
+INFO 2018-06-06 22:04:26,460 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /static/css/lg.css HTTP/1.1" 200 6102
+ERROR 2018-06-06 22:04:27,073 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /checkcode/ HTTP/1.1" 500 96759
+ERROR 2018-06-06 22:04:27,076 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /checkcode/ HTTP/1.1" 500 59
+INFO 2018-06-06 22:04:27,609 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /static/js/jquery.min.js HTTP/1.1" 200 97168
+INFO 2018-06-06 22:04:28,364 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /static/js/cf.js HTTP/1.1" 200 512
+INFO 2018-06-06 22:04:29,142 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /static/js/jquery.cookie.js HTTP/1.1" 200 2188
+INFO 2018-06-06 22:04:29,901 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /static/js/lg.js HTTP/1.1" 200 3047
+DEBUG 2018-06-06 22:04:31,516 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\template\base.py base.py base _resolve_lookup 925: Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\template\base.py", line 903, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [name] in u'<RegexURLResolver <RegexURLPattern list> (admin:admin) ^admin/>'
+DEBUG 2018-06-06 22:04:31,520 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\template\base.py base.py base _resolve_lookup 925: Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\template\base.py", line 903, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [name] in u"<RegexURLResolver <module 'hostinfo.urls' from 'E:\\f2\\hostinfo\\urls.py'> (None:None) ^hostinfo/>"
+DEBUG 2018-06-06 22:04:31,523 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\template\base.py base.py base _resolve_lookup 925: Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\template\base.py", line 903, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [name] in u"<RegexURLResolver <module 'VersionIterration.urls' from 'E:\\f2\\VersionIterration\\urls.py'> (None:None) ^version/>"
+WARNING 2018-06-06 22:04:31,523 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /favicon.ico HTTP/1.1" 404 2675
+ERROR 2018-06-06 22:04:34,875 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /checkcode/? HTTP/1.1" 500 96759
+ERROR 2018-06-06 22:04:34,878 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /checkcode/? HTTP/1.1" 500 59
+ERROR 2018-06-06 22:04:37,221 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /checkcode/?? HTTP/1.1" 500 97053
+DEBUG 2018-06-06 22:16:06,325 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\db\backends\utils.py utils.py utils execute 90: (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-06-06 22:16:06,328 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\db\backends\utils.py utils.py utils execute 90: (0.001) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+INFO 2018-06-06 22:16:13,785 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET / HTTP/1.1" 200 1428
+INFO 2018-06-06 22:16:14,533 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /static/css/lg.css HTTP/1.1" 304 0
+DEBUG 2018-06-06 22:16:15,255 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\db\backends\utils.py utils.py utils execute 90: (0.001) SELECT (1) AS "a" FROM "django_session" WHERE "django_session"."session_key" = 'coxq366khbg3myzytzd572sgu2ob6x8j' LIMIT 1; args=(u'coxq366khbg3myzytzd572sgu2ob6x8j',)
+DEBUG 2018-06-06 22:16:15,256 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\db\backends\utils.py utils.py utils execute 90: (0.000) BEGIN; args=None
+DEBUG 2018-06-06 22:16:15,257 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\db\backends\utils.py utils.py utils execute 90: (0.001) INSERT INTO "django_session" ("session_key", "session_data", "expire_date") SELECT 'coxq366khbg3myzytzd572sgu2ob6x8j', 'N2I2NjMzMjM2MjJjZTMzMGZjOTY3ZDgwM2I1Mzc2MjhjNjEzZjIzZjp7IkNoZWNrQ29kZSI6IkM4TVIifQ==', '2018-06-20 22:16:15.256000'; args=(u'coxq366khbg3myzytzd572sgu2ob6x8j', u'N2I2NjMzMjM2MjJjZTMzMGZjOTY3ZDgwM2I1Mzc2MjhjNjEzZjIzZjp7IkNoZWNrQ29kZSI6IkM4TVIifQ==', u'2018-06-20 22:16:15.256000')
+INFO 2018-06-06 22:16:15,381 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /checkcode/ HTTP/1.1" 200 2442
+INFO 2018-06-06 22:16:15,934 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /static/js/jquery.min.js HTTP/1.1" 304 0
+INFO 2018-06-06 22:16:16,661 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /static/js/cf.js HTTP/1.1" 304 0
+INFO 2018-06-06 22:16:17,335 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /static/js/jquery.cookie.js HTTP/1.1" 304 0
+INFO 2018-06-06 22:16:18,015 C:\Users\lmh\AppData\Roaming\Python\Python27\site-packages\django\core\servers\basehttp.py basehttp.py basehttp log_message 124: "GET /static/js/lg.js HTTP/1.1" 304 0

@@ -22,7 +22,7 @@ class sendMail():
         self.to=to
         self.text=text
         self.sender = 'liminghua@kangxi.info'
-        self.upass="Lmh@2018"
+        self.upass="####"
     def html(self,u):
         title = "验证码信息"
         userName = u

@@ -5,7 +5,7 @@ backports.shutil-get-terminal-size==1.0.0
 certifi==2017.11.5
 chardet==3.0.4
 configparser==3.5.0
-Django==1.11.9
+Django==1.11.28
 django-pure-pagination==0.3.0
 enum34==1.1.6
 flake8==3.5.0

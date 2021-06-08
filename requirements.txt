@@ -18,7 +18,7 @@ itchat==1.2.32
 mccabe==0.6.1
 pathlib==1.0.1
 pew==1.1.1
-Pillow==5.0.0
+Pillow==8.2.0
 pipenv==8.3.2
 psutil==5.3.1
 pycodestyle==2.3.1
